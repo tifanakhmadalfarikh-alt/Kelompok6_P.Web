@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Supervisor - OPTi-MA</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f6fa; color: #2d3748; line-height: 1.65; }
+header { background: linear-gradient(135deg, #1f3a5f, #2c5282); color: #fff; padding: 32px 24px 24px; text-align: center; }
+header h1 { font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 8px; font-weight: 700; }
+header h1::after { content: ""; display: block; width: 60px; height: 4px; background: #f6ad55; margin: 10px auto 0; border-radius: 2px; }
+header p { font-size: 0.9rem; opacity: 0.9; max-width: 640px; margin: 0 auto; }
+.user-bar { background: #142a45; color: #cbd5e0; display: flex; justify-content: space-between; align-items: center; padding: 10px 24px; font-size: 0.85rem; flex-wrap: wrap; gap: 10px; }
+.user-bar .info { display: flex; align-items: center; gap: 8px; }
+.user-bar .dot { width: 8px; height: 8px; background: #38a169; border-radius: 50%; box-shadow: 0 0 8px #38a169; }
+.user-bar a { color: #f6ad55; text-decoration: none; font-weight: 600; }
+.user-bar a:hover { text-decoration: underline; }
+nav { background: #1f3a5f; display: flex; justify-content: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); padding: 0 16px; }
+nav a { color: #cbd5e0; text-decoration: none; padding: 14px 22px; font-weight: 500; border-bottom: 3px solid transparent; transition: 0.25s; font-size: 0.9rem; }
+nav a:hover { color: #fff; background: rgba(255,255,255,0.06); border-bottom-color: #f6ad55; }
+nav a.active { color: #fff; border-bottom-color: #f6ad55; }
+nav a .badge-nav { display: inline-block; background: #e53e3e; color: #fff; font-size: 0.7rem; padding: 2px 7px; border-radius: 10px; margin-left: 6px; font-weight: 700; }
+
+main { max-width: 1200px; margin: 30px auto; padding: 0 20px 50px; }
+
+/* BANNER */
+.banner-notif {
+    background: linear-gradient(135deg, #bee3f8, #90cdf4);
+    border-left: 6px solid #2c5282; border-radius: 12px;
+    padding: 18px 24px; margin-bottom: 22px;
+    display: none; align-items: center; gap: 14px;
+    box-shadow: 0 4px 14px rgba(44,82,130,0.2);
+}
+.banner-notif.show { display: flex; }
+.banner-notif .icon { font-size: 1.8rem; }
+.banner-notif .text { flex: 1; color: #2a4365; font-weight: 600; font-size: 0.92rem; }
+.banner-notif .text small { display: block; font-weight: 400; color: #2c5282; margin-top: 2px; font-size: 0.82rem; }
+.banner-notif button { background: #2c5282; color: #fff; padding: 8px 18px; border-radius: 8px; border: none; cursor: pointer; font-weight: 600; font-size: 0.85rem; }
+
+/* PAGE TITLE */
+.page-title { background: linear-gradient(135deg, #ffffff 0%, #edf2f7 100%); border-radius: 14px; padding: 24px 30px; margin-bottom: 24px; box-shadow: 0 6px 20px rgba(31,58,95,0.1); border-left: 6px solid #f6ad55; }
+.page-title h2 { color: #1f3a5f; font-size: 1.6rem; margin-bottom: 6px; }
+.page-title p { color: #4a5568; font-size: 0.9rem; }
+
+/* STAT */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: 0 4px 14px rgba(31,58,95,0.08); transition: 0.25s; border-top: 4px solid #2c5282; }
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(31,58,95,0.15); }
+.stat-card .label { font-size: 0.78rem; color: #718096; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 600; margin-bottom: 6px; }
+.stat-card .value { font-size: 2rem; font-weight: 700; color: #1f3a5f; line-height: 1.2; }
+.stat-card .value span { font-size: 0.9rem; color: #718096; font-weight: 500; }
+.stat-card.orange { border-top-color: #dd8b1a; } .stat-card.orange .value { color: #dd8b1a; }
+.stat-card.green { border-top-color: #38a169; } .stat-card.green .value { color: #38a169; }
+.stat-card.red { border-top-color: #e53e3e; } .stat-card.red .value { color: #e53e3e; }
+
+section { background: #fff; border-radius: 14px; padding: 24px 26px; margin-bottom: 24px; box-shadow: 0 4px 14px rgba(31,58,95,0.08); }
+section h3 { color: #1f3a5f; font-size: 1.15rem; margin-bottom: 14px; padding-left: 12px; border-left: 4px solid #f6ad55; }
+
+table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.88rem; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+table thead { background: linear-gradient(135deg, #1f3a5f, #2c5282); color: #fff; }
+table th { padding: 12px 14px; text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.6px; }
+table td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; color: #2d3748; vertical-align: top; }
+table tbody tr { transition: background 0.2s; }
+table tbody tr:nth-child(even) { background: #f9fafc; }
+table tbody tr:hover { background: #ebf4ff; }
+
+.badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.badge.success { background: #c6f6d5; color: #22543d; }
+.badge.warning { background: #feebc8; color: #7b341e; }
+.badge.danger  { background: #fed7d7; color: #742a2a; }
+.badge.info    { background: #bee3f8; color: #2a4365; }
+
+.empty-state { text-align: center; padding: 40px 20px; color: #718096; }
+.empty-state .icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
+
+/* TOMBOL AKSI */
+.btn-aksi { padding: 6px 14px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600; transition: 0.2s; font-family: inherit; border: none; margin-right: 4px; }
+.btn-approve { background: #c6f6d5; color: #22543d; }
+.btn-approve:hover { background: #38a169; color: #fff; }
+.btn-reject { background: #fed7d7; color: #742a2a; }
+.btn-reject:hover { background: #e53e3e; color: #fff; }
+.btn-detail { background: #edf2f7; color: #2c5282; }
+.btn-detail:hover { background: #bee3f8; }
+
+/* DETAIL EXPAND */
+.detail-row { display: none; }
+.detail-row.open { display: table-row; }
+.detail-row td { background: #f0f4f9 !important; padding: 18px 22px !important; font-size: 0.85rem; border-left: 4px solid #2c5282; }
+.detail-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.detail-item { background: #fff; padding: 10px 14px; border-radius: 6px; border-left: 3px solid #f6ad55; }
+.detail-item .lbl { font-size: 0.7rem; text-transform: uppercase; color: #718096; font-weight: 700; letter-spacing: 0.5px; }
+.detail-item .val { color: #1f3a5f; font-weight: 600; font-size: 0.88rem; margin-top: 2px; }
+
+/* MODAL */
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    display: none; align-items: center; justify-content: center;
+    z-index: 10000; padding: 20px;
+    backdrop-filter: blur(3px);
+}
+.modal-overlay.show { display: flex; }
+.modal-box {
+    background: #fff; border-radius: 16px; padding: 30px 32px;
+    max-width: 500px; width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    animation: modalIn 0.3s ease;
+}
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-box h3 { color: #1f3a5f; font-size: 1.25rem; margin-bottom: 8px; padding-left: 12px; border-left: 4px solid #f6ad55; }
+.modal-box .sub { color: #718096; font-size: 0.88rem; margin-bottom: 18px; }
+.modal-box textarea {
+    width: 100%; padding: 12px 14px; border: 1.5px solid #e2e8f0;
+    border-radius: 8px; font-size: 0.92rem; font-family: inherit;
+    color: #2d3748; resize: vertical; min-height: 90px;
+    transition: 0.2s;
+}
+.modal-box textarea:focus { outline: none; border-color: #2c5282; box-shadow: 0 0 0 3px rgba(44,82,130,0.15); }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 18px; }
+.modal-actions button { padding: 11px 24px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: 0.2s; }
+.btn-batal { background: #e2e8f0; color: #2d3748; }
+.btn-batal:hover { background: #cbd5e0; }
+.btn-konfirmasi-approve { background: linear-gradient(135deg, #38a169, #2f855a); color: #fff; }
+.btn-konfirmasi-approve:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(56,161,105,0.4); }
+.btn-konfirmasi-reject { background: linear-gradient(135deg, #e53e3e, #c53030); color: #fff; }
+.btn-konfirmasi-reject:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(229,62,62,0.4); }
+
+/* NOTIF POPUP */
+.notif-popup {
+    position: fixed; top: 20px; right: 20px;
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    color: #fff; padding: 18px 26px; border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    font-weight: 600; z-index: 9999;
+    opacity: 0; transform: translateX(400px);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    display: flex; align-items: center; gap: 12px;
+    max-width: 380px; font-size: 0.92rem;
+}
+.notif-popup.show { opacity: 1; transform: translateX(0); }
+.notif-popup .icon { font-size: 1.6rem; }
+.notif-popup.reject { background: linear-gradient(135deg, #e53e3e, #c53030); }
+
+footer { background: #142a45; color: #a0aec0; text-align: center; padding: 24px 20px; font-size: 0.85rem; margin-top: 40px; }
+
+@media (max-width: 768px) {
+    header h1 { font-size: 1.7rem; }
+    nav { flex-direction: column; padding: 0; }
+    nav a { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    main { padding: 0 14px 30px; }
+    section { padding: 18px 16px; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    .user-bar { justify-content: center; text-align: center; }
+    .modal-box { padding: 22px 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>OPTi-MA</h1>
+    <p>Dashboard Supervisor</p>
+</header>
+
+<div class="user-bar">
+    <div class="info">
+        <span class="dot"></span>
+        <span id="userInfo">Memuat...</span>
+    </div>
+    <a href="login.html" onclick="logout()">Logout</a>
+</div>
+
+<nav>
+    <a href="dashboard_supervisor.html" class="active">
+        Dashboard
+        <span class="badge-nav" id="navBadge" style="display:none;">0</span>
+    </a>
+</nav>
+
+<main>
+
+    <!-- BANNER -->
+    <div class="banner-notif" id="bannerNotif">
+        <span class="icon">🔔</span>
+        <div class="text">
+            <span id="bannerText">Ada laporan baru dari operator!</span>
+            <small id="bannerSub">Silakan tinjau dan setujui/tolak laporan di bawah.</small>
+        </div>
+        <button onclick="tutupBanner()">Tutup</button>
+    </div>
+
+    <div class="page-title">
+        <h2 id="greeting">Halo, Supervisor!</h2>
+        <p>Tinjau dan setujui laporan kerusakan dari operator di sini.</p>
+    </div>
+
+    <!-- STATISTIK -->
+    <div class="stats">
+        <div class="stat-card">
+            <div class="label">Total Laporan</div>
+            <div class="value" id="statTotal">0 <span>laporan</span></div>
+        </div>
+        <div class="stat-card orange">
+            <div class="label">Menunggu Persetujuan</div>
+            <div class="value" id="statMenunggu">0 <span>laporan</span></div>
+        </div>
+        <div class="stat-card green">
+            <div class="label">Disetujui</div>
+            <div class="value" id="statDisetujui">0 <span>laporan</span></div>
+        </div>
+        <div class="stat-card red">
+            <div class="label">Ditolak</div>
+            <div class="value" id="statDitolak">0 <span>laporan</span></div>
+        </div>
+    </div>
+
+    <!-- TABEL SEMUA LAPORAN -->
+    <section>
+        <h3>Daftar Laporan dari Operator</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>Tanggal</th>
+                    <th>Operator</th>
+                    <th>Nomor Unit</th>
+                    <th>Jenis Alat</th>
+                    <th>Hasil</th>
+                    <th>Status</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody id="tabelLaporan">
+                <tr><td colspan="7"><div class="empty-state"><div class="icon">📭</div><p>Belum ada laporan dari operator.</p></div></td></tr>
+            </tbody>
+        </table>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 OPTi-MA. Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web.</p>
+</footer>
+
+<!-- MODAL APPROVE/REJECT -->
+<div class="modal-overlay" id="modalOverlay">
+    <div class="modal-box">
+        <h3 id="modalTitle">Setujui Laporan</h3>
+        <p class="sub" id="modalSub">Tambahkan catatan (opsional) untuk operator.</p>
+        <textarea id="modalCatatan" placeholder="Contoh: Disetujui, segera lakukan perbaikan..." rows="4"></textarea>
+        <div class="modal-actions">
+            <button class="btn-batal" onclick="tutupModal()">Batal</button>
+            <button id="btnKonfirmasi" class="btn-konfirmasi-approve" onclick="konfirmasi()">Konfirmasi</button>
+        </div>
+    </div>
+</div>
+
+<!-- NOTIF POPUP -->
+<div class="notif-popup" id="notifPopup">
+    <span class="icon">✅</span>
+    <span id="notifText">Notifikasi</span>
+</div>
+
+<script>
+// ===== CEK SESI =====
+const session = JSON.parse(localStorage.getItem('optima_session') || 'null');
+if (!session || session.role !== 'supervisor') {
+    alert('Anda harus login sebagai Supervisor.');
+    window.location.href = 'login.html';
+}
+document.getElementById('userInfo').textContent = session.nama + ' — Supervisor';
+document.getElementById('greeting').textContent = 'Halo, ' + session.nama + '!';
+
+function logout() {
+    if (confirm('Yakin ingin logout?')) {
+        localStorage.removeItem('optima_session');
+    }
+}
+
+// ===== AMBIL SEMUA LAPORAN =====
+function semuaLaporan() {
+    return JSON.parse(localStorage.getItem('optima_laporan') || '[]');
+}
+function simpanLaporan(arr) {
+    localStorage.setItem('optima_laporan', JSON.stringify(arr));
+}
+
+// ===== RENDER =====
+function renderTabel() {
+    const laporan = semuaLaporan();
+    const tbody = document.getElementById('tabelLaporan');
+
+    const total = laporan.length;
+    const menunggu = laporan.filter(l => l.status === 'Menunggu Persetujuan Supervisor').length;
+    const disetujui = laporan.filter(l => l.status === 'Disetujui Supervisor').length;
+    const ditolak = laporan.filter(l => l.status === 'Ditolak Supervisor').length;
+
+    document.getElementById('statTotal').innerHTML = total + ' <span>laporan</span>';
+    document.getElementById('statMenunggu').innerHTML = menunggu + ' <span>laporan</span>';
+    document.getElementById('statDisetujui').innerHTML = disetujui + ' <span>laporan</span>';
+    document.getElementById('statDitolak').innerHTML = ditolak + ' <span>laporan</span>';
+
+    // Badge notif = laporan baru (menunggu)
+    const navBadge = document.getElementById('navBadge');
+    if (menunggu > 0) {
+        navBadge.textContent = menunggu;
+        navBadge.style.display = 'inline-block';
+        document.getElementById('bannerNotif').classList.add('show');
+        document.getElementById('bannerText').textContent = 'Ada ' + menunggu + ' laporan baru dari operator!';
+    } else {
+        navBadge.style.display = 'none';
+        document.getElementById('bannerNotif').classList.remove('show');
+    }
+
+    if (laporan.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="7"><div class="empty-state"><div class="icon">📭</div><p>Belum ada laporan dari operator.</p></div></td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = laporan.map((l, i) => {
+        let badgeClass = 'warning';
+        if (l.status === 'Disetujui Supervisor') badgeClass = 'success';
+        else if (l.status === 'Ditolak Supervisor') badgeClass = 'danger';
+
+        let aksiHTML = '';
+        if (l.status === 'Menunggu Persetujuan Supervisor') {
+            aksiHTML = `
+                <button class="btn-aksi btn-approve" onclick="bukaModal('${l.id}', 'approve')">✓ Setujui</button>
+                <button class="btn-aksi btn-reject" onclick="bukaModal('${l.id}', 'reject')">✗ Tolak</button>
+                <button class="btn-aksi btn-detail" onclick="toggleDetail(${i})">Detail</button>
+            `;
+        } else {
+            aksiHTML = `<button class="btn-aksi btn-detail" onclick="toggleDetail(${i})">Lihat Detail</button>`;
+        }
+
+        return `
+            <tr>
+                <td>${l.tanggal}</td>
+                <td>${l.operator}</td>
+                <td><strong>${l.nomor_unit}</strong></td>
+                <td>${l.jenis_alat}</td>
+                <td>${l.hasil_pemeriksaan || '-'}</td>
+                <td><span class="badge ${badgeClass}">${l.status}</span></td>
+                <td>${aksiHTML}</td>
+            </tr>
+            <tr class="detail-row" id="detail-${i}">
+                <td colspan="7">
+                    <div class="detail-grid">
+                        <div class="detail-item"><div class="lbl">Hour Meter</div><div class="val">${l.hour_meter} HM</div></div>
+                        <div class="detail-item"><div class="lbl">Komponen Bermasalah</div><div class="val">${l.komponen_bermasalah || '-'}</div></div>
+                        <div class="detail-item"><div class="lbl">Jenis Kerusakan</div><div class="val">${l.jenis_kondisi || '-'}</div></div>
+                        <div class="detail-item"><div class="lbl">Status</div><div class="val">${l.status}</div></div>
+                        <div class="detail-item" style="grid-column: 1 / -1;"><div class="lbl">Keterangan Kerusakan</div><div class="val">${l.keterangan_kerusakan || '-'}</div></div>
+                        <div class="detail-item" style="grid-column: 1 / -1;"><div class="lbl">Catatan Operasional</div><div class="val">${l.catatan_operasional || '-'}</div></div>
+                        ${l.catatan_supervisor ? `<div class="detail-item" style="grid-column: 1 / -1; border-left-color:#38a169;"><div class="lbl">Catatan Supervisor</div><div class="val">${l.catatan_supervisor}</div></div>` : ''}
+                    </div>
+                </td>
+            </tr>
+        `;
+    }).join('');
+}
+
+function toggleDetail(i) {
+    document.getElementById('detail-' + i).classList.toggle('open');
+}
+
+// ===== MODAL =====
+let aksiSekarang = null;
+let idSekarang = null;
+
+function bukaModal(id, aksi) {
+    idSekarang = id;
+    aksiSekarang = aksi;
+    const modal = document.getElementById('modalOverlay');
+    const title = document.getElementById('modalTitle');
+    const sub = document.getElementById('modalSub');
+    const btn = document.getElementById('btnKonfirmasi');
+    const ta = document.getElementById('modalCatatan');
+
+    ta.value = '';
+    if (aksi === 'approve') {
+        title.textContent = '✓ Setujui Laporan';
+        sub.textContent = 'Laporan akan diteruskan ke Mekanik untuk ditindaklanjuti.';
+        btn.textContent = 'Setujui';
+        btn.className = 'btn-konfirmasi-approve';
+        ta.placeholder = 'Contoh: Disetujui, segera lakukan perbaikan...';
+    } else {
+        title.textContent = '✗ Tolak Laporan';
+        sub.textContent = 'Berikan alasan penolakan agar operator tahu.';
+        btn.textContent = 'Tolak';
+        btn.className = 'btn-konfirmasi-reject';
+        ta.placeholder = 'Contoh: Data kurang lengkap, mohon periksa ulang...';
+    }
+    modal.classList.add('show');
+    setTimeout(() => ta.focus(), 100);
+}
+
+function tutupModal() {
+    document.getElementById('modalOverlay').classList.remove('show');
+    aksiSekarang = null;
+    idSekarang = null;
+}
+
+function konfirmasi() {
+    const catatan = document.getElementById('modalCatatan').value.trim();
+    const laporan = semuaLaporan();
+    const idx = laporan.findIndex(l => l.id === idSekarang);
+    if (idx === -1) return;
+
+    if (aksiSekarang === 'approve') {
+        laporan[idx].status = 'Disetujui Supervisor';
+        laporan[idx].catatan_supervisor = catatan || 'Disetujui oleh supervisor.';
+        laporan[idx].waktuDisetujui = new Date().toISOString();
+        laporan[idx].sudahDilihatOperator = false;
+        showNotif('✓ Laporan disetujui dan diteruskan ke Mekanik.', false);
+    } else {
+        laporan[idx].status = 'Ditolak Supervisor';
+        laporan[idx].catatan_supervisor = catatan || 'Ditolak oleh supervisor.';
+        laporan[idx].waktuDitolak = new Date().toISOString();
+        laporan[idx].sudahDilihatOperator = false;
+        showNotif('✗ Laporan ditolak.', true);
+    }
+
+    simpanLaporan(laporan);
+    tutupModal();
+    renderTabel();
+}
+
+// ===== BANNER =====
+function tutupBanner() {
+    document.getElementById('bannerNotif').classList.remove('show');
+}
+
+// ===== NOTIF =====
+function showNotif(text, isReject) {
+    const popup = document.getElementById('notifPopup');
+    document.getElementById('notifText').textContent = text;
+    popup.className = 'notif-popup';
+    if (isReject) popup.classList.add('reject');
+    popup.classList.add('show');
+    setTimeout(() => popup.classList.remove('show'), 3000);
+}
+
+// ===== INIT =====
+renderTabel();
+// Auto-refresh tiap 3 detik → laporan baru dari operator langsung muncul
+setInterval(renderTabel, 3000);
+</script>
+
+</body>
+</html>

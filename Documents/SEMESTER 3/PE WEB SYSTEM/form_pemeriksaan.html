@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Form Pemeriksaan - OPTi-MA</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f6fa; color: #2d3748; line-height: 1.65; }
+header { background: linear-gradient(135deg, #1f3a5f, #2c5282); color: #fff; padding: 32px 24px 24px; text-align: center; }
+header h1 { font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 8px; font-weight: 700; }
+header h1::after { content: ""; display: block; width: 60px; height: 4px; background: #f6ad55; margin: 10px auto 0; border-radius: 2px; }
+header p { font-size: 0.9rem; opacity: 0.9; max-width: 640px; margin: 0 auto; }
+.user-bar {
+    background: #142a45; color: #cbd5e0; display: flex; justify-content: space-between;
+    align-items: center; padding: 10px 24px; font-size: 0.85rem; flex-wrap: wrap; gap: 10px;
+}
+.user-bar .info { display: flex; align-items: center; gap: 8px; }
+.user-bar .dot { width: 8px; height: 8px; background: #38a169; border-radius: 50%; box-shadow: 0 0 8px #38a169; }
+.user-bar a { color: #f6ad55; text-decoration: none; font-weight: 600; }
+.user-bar a:hover { text-decoration: underline; }
+nav { background: #1f3a5f; display: flex; justify-content: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); padding: 0 16px; }
+nav a { color: #cbd5e0; text-decoration: none; padding: 14px 22px; font-weight: 500; border-bottom: 3px solid transparent; transition: 0.25s; font-size: 0.9rem; }
+nav a:hover { color: #fff; background: rgba(255,255,255,0.06); border-bottom-color: #f6ad55; }
+nav a.active { color: #fff; border-bottom-color: #f6ad55; }
+main { max-width: 900px; margin: 30px auto; padding: 0 20px 50px; }
+.page-title { background: linear-gradient(135deg, #ffffff 0%, #edf2f7 100%); border-radius: 14px; padding: 26px 30px; margin-bottom: 26px; box-shadow: 0 6px 20px rgba(31,58,95,0.1); border-left: 6px solid #f6ad55; }
+.page-title h2 { color: #1f3a5f; font-size: 1.6rem; margin-bottom: 8px; }
+.page-title p { color: #4a5568; font-size: 0.92rem; }
+section.card { background: #fff; border-radius: 14px; padding: 24px 28px; margin-bottom: 24px; box-shadow: 0 4px 14px rgba(31,58,95,0.08); }
+section.card > h3 { color: #1f3a5f; font-size: 1.15rem; margin-bottom: 14px; padding-left: 12px; border-left: 4px solid #f6ad55; }
+section.card > p { color: #718096; margin-bottom: 12px; font-size: 0.9rem; }
+fieldset { border: 1px solid #e2e8f0; border-radius: 12px; padding: 18px 20px; margin-bottom: 16px; background: #fcfdff; }
+legend { font-weight: 700; color: #1f3a5f; padding: 0 12px; font-size: 0.95rem; background: #fff; border-radius: 6px; }
+form p { margin-bottom: 12px; }
+form label { font-size: 0.88rem; color: #2d3748; font-weight: 500; }
+form strong { color: #1f3a5f; font-size: 0.9rem; display: inline-block; margin-bottom: 4px; }
+input[type="text"], input[type="number"], select, textarea {
+    width: 100%; padding: 10px 14px; margin-top: 6px;
+    border: 1.5px solid #e2e8f0; border-radius: 8px;
+    font-size: 0.92rem; font-family: inherit; color: #2d3748;
+    background: #fff; transition: 0.2s;
+}
+input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus {
+    outline: none; border-color: #2c5282; box-shadow: 0 0 0 3px rgba(44,82,130,0.15);
+}
+textarea { resize: vertical; min-height: 80px; }
+input[type="radio"] { accent-color: #2c5282; margin-right: 6px; transform: scale(1.1); cursor: pointer; vertical-align: middle; }
+input[type="radio"] + label { margin-right: 18px; cursor: pointer; font-weight: 400; font-size: 0.88rem; vertical-align: middle; }
+.btn-group { margin-top: 22px; display: flex; justify-content: flex-end; gap: 10px; flex-wrap: wrap; }
+button { padding: 12px 26px; border: none; border-radius: 8px; font-size: 0.92rem; font-weight: 600; cursor: pointer; transition: 0.25s; font-family: inherit; }
+button[type="submit"] { background: linear-gradient(135deg, #1f3a5f, #2c5282); color: #fff; box-shadow: 0 4px 12px rgba(31,58,95,0.3); }
+button[type="submit"]:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(31,58,95,0.4); }
+button[type="reset"] { background: #e2e8f0; color: #2d3748; }
+button[type="reset"]:hover { background: #cbd5e0; transform: translateY(-2px); }
+
+/* NOTIFIKASI POPUP */
+.notif-popup {
+    position: fixed; top: 20px; right: 20px;
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    color: #fff; padding: 18px 26px; border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    font-weight: 600; z-index: 9999;
+    opacity: 0; transform: translateX(400px);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    display: flex; align-items: center; gap: 12px;
+    max-width: 380px; font-size: 0.92rem;
+}
+.notif-popup.show { opacity: 1; transform: translateX(0); }
+.notif-popup .icon { font-size: 1.6rem; }
+
+footer { background: #142a45; color: #a0aec0; text-align: center; padding: 24px 20px; font-size: 0.85rem; margin-top: 40px; }
+@media (max-width: 768px) {
+    header h1 { font-size: 1.7rem; }
+    nav { flex-direction: column; padding: 0; }
+    nav a { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    main { padding: 0 14px 30px; }
+    section.card { padding: 18px 16px; }
+    .btn-group { flex-direction: column; }
+    button { width: 100%; }
+    .user-bar { justify-content: center; text-align: center; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>OPTi-MA</h1>
+    <p>Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web</p>
+</header>
+
+<div class="user-bar">
+    <div class="info">
+        <span class="dot"></span>
+        <span id="userInfo">Memuat...</span>
+    </div>
+    <a href="login.html" onclick="logout()">Logout</a>
+</div>
+
+<nav>
+    <a href="dashboard_operator.html">Dashboard</a>
+    <a href="form_pemeriksaan.html" class="active">Form Pemeriksaan</a>
+</nav>
+
+<main>
+
+    <div class="page-title">
+        <h2>Form Pemeriksaan Pra-Operasi</h2>
+        <p>Isi form ini untuk melaporkan kondisi alat berat sebelum digunakan. Laporan akan otomatis terkirim ke Supervisor, Admin, dan Mekanik.</p>
+    </div>
+
+    <section class="card">
+        <h3>Data Pemeriksaan</h3>
+
+        <form id="formPemeriksaan">
+
+            <fieldset>
+                <legend>Identitas Pemeriksaan</legend>
+                <p>
+                    <label for="nama_operator">Nama Operator:</label><br>
+                    <input type="text" id="nama_operator" name="nama_operator" required readonly>
+                </p>
+                <p>
+                    <label for="jenis_alat">Jenis Alat Berat:</label><br>
+                    <select id="jenis_alat" name="jenis_alat" required>
+                        <option value="">-- Pilih Jenis Alat --</option>
+                        <option value="Excavator">Excavator</option>
+                        <option value="Bulldozer">Bulldozer</option>
+                        <option value="Dump Truck">Dump Truck</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="nomor_unit">Nomor Unit:</label><br>
+                    <input type="text" id="nomor_unit" name="nomor_unit" placeholder="Contoh: EXC-001" required>
+                </p>
+                <p>
+                    <label for="hour_meter">Hour Meter (HM):</label><br>
+                    <input type="number" id="hour_meter" name="hour_meter" min="0" required>
+                </p>
+            </fieldset>
+
+            <h3 style="margin-top:10px;">Checklist Pra-Operasi</h3>
+            <p style="color:#718096; margin-bottom:14px; font-size:0.88rem;">
+                Periksa setiap bagian alat berat sebelum digunakan. Pilih <strong>Normal</strong>
+                apabila kondisi sesuai, dan <strong>Tidak Normal</strong> apabila ditemukan kondisi yang perlu diperhatikan.
+            </p>
+
+            <fieldset>
+                <legend>1. Mesin</legend>
+                <p><strong>Oli Mesin</strong><br>
+                    <input type="radio" id="oli_mesin_normal" name="oli_mesin" value="Normal" required><label for="oli_mesin_normal">Normal</label>
+                    <input type="radio" id="oli_mesin_tidak_normal" name="oli_mesin" value="Tidak Normal"><label for="oli_mesin_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Mesin</strong><br>
+                    <input type="radio" id="mesin_normal" name="mesin" value="Normal" required><label for="mesin_normal">Normal</label>
+                    <input type="radio" id="mesin_tidak_normal" name="mesin" value="Tidak Normal"><label for="mesin_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Suara Mesin</strong><br>
+                    <input type="radio" id="suara_mesin_normal" name="suara_mesin" value="Normal" required><label for="suara_mesin_normal">Normal</label>
+                    <input type="radio" id="suara_mesin_tidak_normal" name="suara_mesin" value="Tidak Normal"><label for="suara_mesin_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kebocoran Mesin</strong><br>
+                    <input type="radio" id="kebocoran_mesin_normal" name="kebocoran_mesin" value="Normal" required><label for="kebocoran_mesin_normal">Normal</label>
+                    <input type="radio" id="kebocoran_mesin_tidak_normal" name="kebocoran_mesin" value="Tidak Normal"><label for="kebocoran_mesin_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>2. Sistem Hidrolik</legend>
+                <p><strong>Hydraulic Hose</strong><br>
+                    <input type="radio" id="hose_normal" name="hydraulic_hose" value="Normal" required><label for="hose_normal">Normal</label>
+                    <input type="radio" id="hose_tidak_normal" name="hydraulic_hose" value="Tidak Normal"><label for="hose_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Hydraulic Cylinder</strong><br>
+                    <input type="radio" id="cylinder_normal" name="hydraulic_cylinder" value="Normal" required><label for="cylinder_normal">Normal</label>
+                    <input type="radio" id="cylinder_tidak_normal" name="hydraulic_cylinder" value="Tidak Normal"><label for="cylinder_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Hydraulic Pump</strong><br>
+                    <input type="radio" id="pump_normal" name="hydraulic_pump" value="Normal" required><label for="pump_normal">Normal</label>
+                    <input type="radio" id="pump_tidak_normal" name="hydraulic_pump" value="Tidak Normal"><label for="pump_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kebocoran Oli Hidrolik</strong><br>
+                    <input type="radio" id="kebocoran_hidrolik_normal" name="kebocoran_hidrolik" value="Normal" required><label for="kebocoran_hidrolik_normal">Normal</label>
+                    <input type="radio" id="kebocoran_hidrolik_tidak_normal" name="kebocoran_hidrolik" value="Tidak Normal"><label for="kebocoran_hidrolik_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>3. Oli dan Cairan</legend>
+                <p><strong>Oli Hidrolik</strong><br>
+                    <input type="radio" id="oli_hidrolik_normal" name="oli_hidrolik" value="Normal" required><label for="oli_hidrolik_normal">Normal</label>
+                    <input type="radio" id="oli_hidrolik_tidak_normal" name="oli_hidrolik" value="Tidak Normal"><label for="oli_hidrolik_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Coolant / Air Radiator</strong><br>
+                    <input type="radio" id="coolant_normal" name="coolant" value="Normal" required><label for="coolant_normal">Normal</label>
+                    <input type="radio" id="coolant_tidak_normal" name="coolant" value="Tidak Normal"><label for="coolant_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Oli Transmisi</strong><br>
+                    <input type="radio" id="oli_transmisi_normal" name="oli_transmisi" value="Normal" required><label for="oli_transmisi_normal">Normal</label>
+                    <input type="radio" id="oli_transmisi_tidak_normal" name="oli_transmisi" value="Tidak Normal"><label for="oli_transmisi_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kebocoran Cairan</strong><br>
+                    <input type="radio" id="kebocoran_cairan_normal" name="kebocoran_cairan" value="Normal" required><label for="kebocoran_cairan_normal">Normal</label>
+                    <input type="radio" id="kebocoran_cairan_tidak_normal" name="kebocoran_cairan" value="Tidak Normal"><label for="kebocoran_cairan_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>4. Ban / Track</legend>
+                <p><strong>Kondisi Ban</strong><br>
+                    <input type="radio" id="ban_normal" name="ban" value="Normal" required><label for="ban_normal">Normal</label>
+                    <input type="radio" id="ban_tidak_normal" name="ban" value="Tidak Normal"><label for="ban_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Tekanan Ban</strong><br>
+                    <input type="radio" id="tekanan_ban_normal" name="tekanan_ban" value="Normal" required><label for="tekanan_ban_normal">Normal</label>
+                    <input type="radio" id="tekanan_ban_tidak_normal" name="tekanan_ban" value="Tidak Normal"><label for="tekanan_ban_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Track / Undercarriage</strong><br>
+                    <input type="radio" id="track_normal" name="track" value="Normal" required><label for="track_normal">Normal</label>
+                    <input type="radio" id="track_tidak_normal" name="track" value="Tidak Normal"><label for="track_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kondisi Track / Ban dari Kerusakan Fisik</strong><br>
+                    <input type="radio" id="kondisi_track_normal" name="kondisi_track" value="Normal" required><label for="kondisi_track_normal">Normal</label>
+                    <input type="radio" id="kondisi_track_tidak_normal" name="kondisi_track" value="Tidak Normal"><label for="kondisi_track_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>5. Sistem Kelistrikan</legend>
+                <p><strong>Aki / Battery</strong><br>
+                    <input type="radio" id="aki_normal" name="aki" value="Normal" required><label for="aki_normal">Normal</label>
+                    <input type="radio" id="aki_tidak_normal" name="aki" value="Tidak Normal"><label for="aki_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kabel Kelistrikan</strong><br>
+                    <input type="radio" id="kabel_normal" name="kabel" value="Normal" required><label for="kabel_normal">Normal</label>
+                    <input type="radio" id="kabel_tidak_normal" name="kabel" value="Tidak Normal"><label for="kabel_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Starter</strong><br>
+                    <input type="radio" id="starter_normal" name="starter" value="Normal" required><label for="starter_normal">Normal</label>
+                    <input type="radio" id="starter_tidak_normal" name="starter" value="Tidak Normal"><label for="starter_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Alternator</strong><br>
+                    <input type="radio" id="alternator_normal" name="alternator" value="Normal" required><label for="alternator_normal">Normal</label>
+                    <input type="radio" id="alternator_tidak_normal" name="alternator" value="Tidak Normal"><label for="alternator_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>6. Lampu dan Indikator</legend>
+                <p><strong>Lampu Utama</strong><br>
+                    <input type="radio" id="lampu_utama_normal" name="lampu_utama" value="Normal" required><label for="lampu_utama_normal">Normal</label>
+                    <input type="radio" id="lampu_utama_tidak_normal" name="lampu_utama" value="Tidak Normal"><label for="lampu_utama_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Lampu Peringatan</strong><br>
+                    <input type="radio" id="lampu_peringatan_normal" name="lampu_peringatan" value="Normal" required><label for="lampu_peringatan_normal">Normal</label>
+                    <input type="radio" id="lampu_peringatan_tidak_normal" name="lampu_peringatan" value="Tidak Normal"><label for="lampu_peringatan_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Panel / Indikator</strong><br>
+                    <input type="radio" id="panel_normal" name="panel" value="Normal" required><label for="panel_normal">Normal</label>
+                    <input type="radio" id="panel_tidak_normal" name="panel" value="Tidak Normal"><label for="panel_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>7. Sistem Pengereman</legend>
+                <p><strong>Rem Utama</strong><br>
+                    <input type="radio" id="rem_utama_normal" name="rem_utama" value="Normal" required><label for="rem_utama_normal">Normal</label>
+                    <input type="radio" id="rem_utama_tidak_normal" name="rem_utama" value="Tidak Normal"><label for="rem_utama_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Rem Parkir</strong><br>
+                    <input type="radio" id="rem_parkir_normal" name="rem_parkir" value="Normal" required><label for="rem_parkir_normal">Normal</label>
+                    <input type="radio" id="rem_parkir_tidak_normal" name="rem_parkir" value="Tidak Normal"><label for="rem_parkir_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kebocoran Sistem Rem</strong><br>
+                    <input type="radio" id="kebocoran_rem_normal" name="kebocoran_rem" value="Normal" required><label for="kebocoran_rem_normal">Normal</label>
+                    <input type="radio" id="kebocoran_rem_tidak_normal" name="kebocoran_rem" value="Tidak Normal"><label for="kebocoran_rem_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>8. Sistem Kemudi / Kontrol</legend>
+                <p><strong>Steering / Kemudi</strong><br>
+                    <input type="radio" id="steering_normal" name="steering" value="Normal" required><label for="steering_normal">Normal</label>
+                    <input type="radio" id="steering_tidak_normal" name="steering" value="Tidak Normal"><label for="steering_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Joystick / Control Lever</strong><br>
+                    <input type="radio" id="joystick_normal" name="joystick" value="Normal" required><label for="joystick_normal">Normal</label>
+                    <input type="radio" id="joystick_tidak_normal" name="joystick" value="Tidak Normal"><label for="joystick_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Pedal / Kontrol Operasional</strong><br>
+                    <input type="radio" id="pedal_normal" name="pedal" value="Normal" required><label for="pedal_normal">Normal</label>
+                    <input type="radio" id="pedal_tidak_normal" name="pedal" value="Tidak Normal"><label for="pedal_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>9. Perlengkapan Keselamatan</legend>
+                <p><strong>Seat Belt</strong><br>
+                    <input type="radio" id="seatbelt_normal" name="seatbelt" value="Normal" required><label for="seatbelt_normal">Normal</label>
+                    <input type="radio" id="seatbelt_tidak_normal" name="seatbelt" value="Tidak Normal"><label for="seatbelt_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>APAR</strong><br>
+                    <input type="radio" id="apar_normal" name="apar" value="Normal" required><label for="apar_normal">Normal</label>
+                    <input type="radio" id="apar_tidak_normal" name="apar" value="Tidak Normal"><label for="apar_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Klakson</strong><br>
+                    <input type="radio" id="klakson_normal" name="klakson" value="Normal" required><label for="klakson_normal">Normal</label>
+                    <input type="radio" id="klakson_tidak_normal" name="klakson" value="Tidak Normal"><label for="klakson_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Alarm Mundur</strong><br>
+                    <input type="radio" id="alarm_mundur_normal" name="alarm_mundur" value="Normal" required><label for="alarm_mundur_normal">Normal</label>
+                    <input type="radio" id="alarm_mundur_tidak_normal" name="alarm_mundur" value="Tidak Normal"><label for="alarm_mundur_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>10. Attachment / Peralatan Kerja</legend>
+                <p><strong>Bucket / Blade / Dump Body</strong><br>
+                    <input type="radio" id="attachment_normal" name="attachment" value="Normal" required><label for="attachment_normal">Normal</label>
+                    <input type="radio" id="attachment_tidak_normal" name="attachment" value="Tidak Normal"><label for="attachment_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Pin dan Bushing</strong><br>
+                    <input type="radio" id="pin_bushing_normal" name="pin_bushing" value="Normal" required><label for="pin_bushing_normal">Normal</label>
+                    <input type="radio" id="pin_bushing_tidak_normal" name="pin_bushing" value="Tidak Normal"><label for="pin_bushing_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Attachment Cylinder</strong><br>
+                    <input type="radio" id="attachment_cylinder_normal" name="attachment_cylinder" value="Normal" required><label for="attachment_cylinder_normal">Normal</label>
+                    <input type="radio" id="attachment_cylinder_tidak_normal" name="attachment_cylinder" value="Tidak Normal"><label for="attachment_cylinder_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>11. Kondisi Fisik Alat</legend>
+                <p><strong>Body / Rangka</strong><br>
+                    <input type="radio" id="body_normal" name="body" value="Normal" required><label for="body_normal">Normal</label>
+                    <input type="radio" id="body_tidak_normal" name="body" value="Tidak Normal"><label for="body_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kaca dan Spion</strong><br>
+                    <input type="radio" id="kaca_spion_normal" name="kaca_spion" value="Normal" required><label for="kaca_spion_normal">Normal</label>
+                    <input type="radio" id="kaca_spion_tidak_normal" name="kaca_spion" value="Tidak Normal"><label for="kaca_spion_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Pintu / Kabin</strong><br>
+                    <input type="radio" id="kabin_normal" name="kabin" value="Normal" required><label for="kabin_normal">Normal</label>
+                    <input type="radio" id="kabin_tidak_normal" name="kabin" value="Tidak Normal"><label for="kabin_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <fieldset>
+                <legend>12. Area Sekitar Alat</legend>
+                <p><strong>Kebocoran di Bawah Alat</strong><br>
+                    <input type="radio" id="kebocoran_bawah_normal" name="kebocoran_bawah" value="Normal" required><label for="kebocoran_bawah_normal">Normal</label>
+                    <input type="radio" id="kebocoran_bawah_tidak_normal" name="kebocoran_bawah" value="Tidak Normal"><label for="kebocoran_bawah_tidak_normal">Tidak Normal</label>
+                </p>
+                <p><strong>Kondisi Area Sekitar</strong><br>
+                    <input type="radio" id="area_sekitar_normal" name="area_sekitar" value="Normal" required><label for="area_sekitar_normal">Normal</label>
+                    <input type="radio" id="area_sekitar_tidak_normal" name="area_sekitar" value="Tidak Normal"><label for="area_sekitar_tidak_normal">Tidak Normal</label>
+                </p>
+            </fieldset>
+
+            <h3 style="margin-top:20px;">Hasil Pemeriksaan</h3>
+            <fieldset>
+                <legend>Kondisi Alat</legend>
+                <p>
+                    <input type="radio" id="layak_digunakan" name="hasil_pemeriksaan" value="Layak Digunakan" required>
+                    <label for="layak_digunakan">Kondisi Normal / Layak Digunakan</label>
+                </p>
+                <p>
+                    <input type="radio" id="tidak_layak" name="hasil_pemeriksaan" value="Tidak Layak Digunakan">
+                    <label for="tidak_layak">Ditemukan Kerusakan / Tidak Layak Digunakan</label>
+                </p>
+            </fieldset>
+
+            <h3 style="margin-top:20px;">Laporan Kerusakan</h3>
+            <p style="color:#718096; margin-bottom:14px; font-size:0.88rem;">
+                Bagian ini diisi apabila ditemukan kondisi tidak normal pada saat pemeriksaan.
+            </p>
+            <fieldset>
+                <legend>Detail Kondisi atau Kerusakan</legend>
+                <p>
+                    <label for="komponen_bermasalah">Komponen yang Bermasalah:</label><br>
+                    <select id="komponen_bermasalah" name="komponen_bermasalah">
+                        <option value="">-- Pilih Komponen --</option>
+                        <option value="Mesin">Mesin</option>
+                        <option value="Sistem Hidrolik">Sistem Hidrolik</option>
+                        <option value="Oli / Pelumas">Oli / Pelumas</option>
+                        <option value="Ban / Track">Ban / Track</option>
+                        <option value="Kelistrikan / Indikator">Kelistrikan / Indikator</option>
+                        <option value="Pengereman">Pengereman</option>
+                        <option value="Kemudi / Kontrol">Kemudi / Kontrol</option>
+                        <option value="Keselamatan">Keselamatan</option>
+                        <option value="Attachment">Attachment</option>
+                        <option value="Kondisi Fisik">Kondisi Fisik</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="jenis_kondisi">Jenis Kondisi / Kerusakan:</label><br>
+                    <select id="jenis_kondisi" name="jenis_kondisi">
+                        <option value="">-- Pilih Kondisi --</option>
+                        <option value="Kebocoran">Kebocoran</option>
+                        <option value="Suara Tidak Normal">Suara Tidak Normal</option>
+                        <option value="Getaran Berlebih">Getaran Berlebih</option>
+                        <option value="Temperatur Meningkat">Temperatur Meningkat</option>
+                        <option value="Komponen Aus">Komponen Aus</option>
+                        <option value="Kerusakan Fisik">Kerusakan Fisik</option>
+                        <option value="Komponen Longgar">Komponen Longgar</option>
+                        <option value="Fungsi Tidak Normal">Fungsi Tidak Normal</option>
+                        <option value="Indikator Peringatan">Indikator Peringatan</option>
+                        <option value="Lainnya">Lainnya</option>
+                    </select>
+                </p>
+                <p>
+                    <label for="keterangan_kerusakan">Keterangan Kerusakan:</label><br>
+                    <textarea id="keterangan_kerusakan" name="keterangan_kerusakan" rows="4" placeholder="Jelaskan kondisi atau kerusakan yang ditemukan"></textarea>
+                </p>
+            </fieldset>
+
+            <h3 style="margin-top:20px;">Kondisi Operasional</h3>
+            <p>
+                <label for="
+                            <p>
+                <label for="catatan_operasional">Catatan Tambahan:</label><br>
+                <textarea id="catatan_operasional" name="catatan_operasional" rows="4" placeholder="Masukkan catatan kondisi alat saat pemeriksaan"></textarea>
+            </p>
+
+            <div class="btn-group">
+                <button type="reset">Reset Form</button>
+                <button type="submit">Ajukan Laporan Pemeriksaan</button>
+            </div>
+
+        </form>
+    </section>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 OPTi-MA. Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web.</p>
+</footer>
+
+<div class="notif-popup" id="notifPopup">
+    <span class="icon">✅</span>
+    <span id="notifText">Laporan berhasil dikirim!</span>
+</div>
+
+<script>
+// ===== CEK SESI LOGIN =====
+const session = JSON.parse(localStorage.getItem('optima_session') || 'null');
+
+if (!session || session.role !== 'operator') {
+    alert('Anda harus login sebagai Operator terlebih dahulu.');
+    window.location.href = 'login.html';
+}
+
+// Tampilkan info user
+document.getElementById('userInfo').textContent = session.nama + ' — Login sebagai Operator';
+
+// Isi otomatis nama operator
+document.getElementById('nama_operator').value = session.nama;
+
+// ===== LOGOUT =====
+function logout() {
+    if (confirm('Yakin ingin logout?')) {
+        localStorage.removeItem('optima_session');
+    }
+}
+
+// ===== SUBMIT FORM =====
+document.getElementById('formPemeriksaan').addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const formData = new FormData(this);
+    const data = {};
+
+    // Ambil semua field text, select, textarea, radio
+    for (let [key, value] of formData.entries()) {
+        data[key] = value;
+    }
+
+    // Tambahkan metadata
+    const laporan = {
+        id: 'LAP-' + Date.now(),
+        waktu: new Date().toISOString(),
+        tanggal: new Date().toLocaleString('id-ID', {
+            day: '2-digit', month: '2-digit', year: 'numeric',
+            hour: '2-digit', minute: '2-digit'
+        }),
+        operator: session.nama,
+        status: 'Menunggu Persetujuan Supervisor', // status awal
+        ...data
+    };
+
+    // Ambil laporan yang sudah ada
+    const semuaLaporan = JSON.parse(localStorage.getItem('optima_laporan') || '[]');
+    semuaLaporan.unshift(laporan); // tambah di depan (terbaru dulu)
+    localStorage.setItem('optima_laporan', JSON.stringify(semuaLaporan));
+
+    // Tampilkan notifikasi sukses
+    showNotif('Laporan berhasil dikirim! Menunggu persetujuan Supervisor.', '#38a169');
+
+    // Reset form (kecuali nama operator)
+    this.reset();
+    document.getElementById('nama_operator').value = session.nama;
+
+    // Redirect ke dashboard operator setelah 2 detik
+    setTimeout(() => {
+        window.location.href = 'dashboard_operator.html';
+    }, 2000);
+});
+
+// ===== FUNGSI NOTIFIKASI =====
+function showNotif(text, warna) {
+    const popup = document.getElementById('notifPopup');
+    document.getElementById('notifText').textContent = text;
+    popup.style.background = warna || 'linear-gradient(135deg, #38a169, #2f855a)';
+    popup.classList.add('show');
+    setTimeout(() => {
+        popup.classList.remove('show');
+    }, 3500);
+}
+</script>
+
+</body>
+</html>

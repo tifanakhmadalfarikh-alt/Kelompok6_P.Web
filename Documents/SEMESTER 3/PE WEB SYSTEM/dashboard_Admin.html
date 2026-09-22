@@ -1,0 +1,655 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Admin - OPTi-MA</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Tahoma, sans-serif; background: #f4f6fa; color: #2d3748; line-height: 1.65; }
+header { background: linear-gradient(135deg, #1f3a5f, #2c5282); color: #fff; padding: 32px 24px 24px; text-align: center; }
+header h1 { font-size: 2.2rem; letter-spacing: 3px; margin-bottom: 8px; font-weight: 700; }
+header h1::after { content: ""; display: block; width: 60px; height: 4px; background: #f6ad55; margin: 10px auto 0; border-radius: 2px; }
+header p { font-size: 0.9rem; opacity: 0.9; max-width: 640px; margin: 0 auto; }
+.user-bar { background: #142a45; color: #cbd5e0; display: flex; justify-content: space-between; align-items: center; padding: 10px 24px; font-size: 0.85rem; flex-wrap: wrap; gap: 10px; }
+.user-bar .info { display: flex; align-items: center; gap: 8px; }
+.user-bar .dot { width: 8px; height: 8px; background: #38a169; border-radius: 50%; box-shadow: 0 0 8px #38a169; }
+.user-bar a { color: #f6ad55; text-decoration: none; font-weight: 600; }
+.user-bar a:hover { text-decoration: underline; }
+nav { background: #1f3a5f; display: flex; justify-content: center; flex-wrap: wrap; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 8px rgba(0,0,0,0.15); padding: 0 16px; }
+nav a { color: #cbd5e0; text-decoration: none; padding: 14px 22px; font-weight: 500; border-bottom: 3px solid transparent; transition: 0.25s; font-size: 0.9rem; }
+nav a:hover { color: #fff; background: rgba(255,255,255,0.06); border-bottom-color: #f6ad55; }
+nav a.active { color: #fff; border-bottom-color: #f6ad55; }
+
+main { max-width: 1200px; margin: 30px auto; padding: 0 20px 50px; }
+
+.page-title { background: linear-gradient(135deg, #ffffff 0%, #edf2f7 100%); border-radius: 14px; padding: 24px 30px; margin-bottom: 24px; box-shadow: 0 6px 20px rgba(31,58,95,0.1); border-left: 6px solid #f6ad55; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px; }
+.page-title h2 { color: #1f3a5f; font-size: 1.6rem; margin-bottom: 6px; }
+.page-title p { color: #4a5568; font-size: 0.9rem; }
+.btn-reset {
+    background: linear-gradient(135deg, #e53e3e, #c53030);
+    color: #fff; padding: 11px 22px; border-radius: 10px;
+    border: none; cursor: pointer; font-weight: 600; font-size: 0.88rem;
+    font-family: inherit; transition: 0.25s;
+    box-shadow: 0 4px 12px rgba(229,62,62,0.3);
+}
+.btn-reset:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(229,62,62,0.4); }
+
+/* TAB */
+.tabs { display: flex; gap: 6px; margin-bottom: 22px; flex-wrap: wrap; }
+.tab-btn {
+    background: #fff; border: 1.5px solid #e2e8f0; color: #4a5568;
+    padding: 11px 22px; border-radius: 10px; cursor: pointer;
+    font-weight: 600; font-size: 0.88rem; font-family: inherit;
+    transition: 0.25s;
+}
+.tab-btn:hover { border-color: #2c5282; color: #2c5282; }
+.tab-btn.active {
+    background: linear-gradient(135deg, #1f3a5f, #2c5282);
+    color: #fff; border-color: #1f3a5f;
+    box-shadow: 0 4px 12px rgba(31,58,95,0.3);
+}
+.tab-content { display: none; }
+.tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+/* STAT */
+.stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 24px; }
+.stat-card { background: #fff; border-radius: 14px; padding: 20px 22px; box-shadow: 0 4px 14px rgba(31,58,95,0.08); transition: 0.25s; border-top: 4px solid #2c5282; }
+.stat-card:hover { transform: translateY(-4px); box-shadow: 0 10px 26px rgba(31,58,95,0.15); }
+.stat-card .label { font-size: 0.78rem; color: #718096; text-transform: uppercase; letter-spacing: 0.7px; font-weight: 600; margin-bottom: 6px; }
+.stat-card .value { font-size: 2rem; font-weight: 700; color: #1f3a5f; line-height: 1.2; }
+.stat-card .value span { font-size: 0.9rem; color: #718096; font-weight: 500; }
+.stat-card.orange { border-top-color: #dd8b1a; } .stat-card.orange .value { color: #dd8b1a; }
+.stat-card.green { border-top-color: #38a169; } .stat-card.green .value { color: #38a169; }
+.stat-card.red { border-top-color: #e53e3e; } .stat-card.red .value { color: #e53e3e; }
+.stat-card.blue { border-top-color: #3182ce; } .stat-card.blue .value { color: #3182ce; }
+
+section { background: #fff; border-radius: 14px; padding: 24px 26px; margin-bottom: 24px; box-shadow: 0 4px 14px rgba(31,58,95,0.08); }
+section h3 { color: #1f3a5f; font-size: 1.15rem; margin-bottom: 14px; padding-left: 12px; border-left: 4px solid #f6ad55; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; }
+section h3 .count { background: #edf2f7; color: #2c5282; font-size: 0.78rem; padding: 2px 10px; border-radius: 12px; }
+
+.btn-tambah {
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    color: #fff; padding: 8px 18px; border-radius: 8px;
+    border: none; cursor: pointer; font-weight: 600; font-size: 0.82rem;
+    font-family: inherit; transition: 0.25s;
+}
+.btn-tambah:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(56,161,105,0.3); }
+
+table { width: 100%; border-collapse: collapse; margin-top: 8px; font-size: 0.88rem; border-radius: 10px; overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+table thead { background: linear-gradient(135deg, #1f3a5f, #2c5282); color: #fff; }
+table th { padding: 12px 14px; text-align: left; font-weight: 600; font-size: 0.78rem; text-transform: uppercase; letter-spacing: 0.6px; }
+table td { padding: 12px 14px; border-bottom: 1px solid #e2e8f0; color: #2d3748; vertical-align: top; }
+table tbody tr { transition: background 0.2s; }
+table tbody tr:nth-child(even) { background: #f9fafc; }
+table tbody tr:hover { background: #ebf4ff; }
+
+.badge { display: inline-block; padding: 4px 12px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; white-space: nowrap; }
+.badge.success { background: #c6f6d5; color: #22543d; }
+.badge.warning { background: #feebc8; color: #7b341e; }
+.badge.danger  { background: #fed7d7; color: #742a2a; }
+.badge.info    { background: #bee3f8; color: #2a4365; }
+.badge.gray    { background: #e2e8f0; color: #4a5568; }
+
+.empty-state { text-align: center; padding: 40px 20px; color: #718096; }
+.empty-state .icon { font-size: 3rem; margin-bottom: 12px; opacity: 0.5; }
+
+.btn-aksi { padding: 6px 12px; border-radius: 6px; cursor: pointer; font-size: 0.78rem; font-weight: 600; transition: 0.2s; font-family: inherit; border: none; margin-right: 4px; }
+.btn-hapus { background: #fed7d7; color: #742a2a; }
+.btn-hapus:hover { background: #e53e3e; color: #fff; }
+
+.filter-bar { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 14px; }
+.filter-bar button {
+    padding: 7px 16px; border-radius: 20px; border: 1.5px solid #e2e8f0;
+    background: #fff; color: #4a5568; cursor: pointer;
+    font-size: 0.8rem; font-weight: 600; font-family: inherit;
+    transition: 0.2s;
+}
+.filter-bar button:hover { border-color: #2c5282; color: #2c5282; }
+.filter-bar button.active { background: #1f3a5f; color: #fff; border-color: #1f3a5f; }
+
+/* MODAL */
+.modal-overlay {
+    position: fixed; inset: 0; background: rgba(0,0,0,0.55);
+    display: none; align-items: center; justify-content: center;
+    z-index: 10000; padding: 20px; backdrop-filter: blur(3px);
+}
+.modal-overlay.show { display: flex; }
+.modal-box {
+    background: #fff; border-radius: 16px; padding: 28px 30px;
+    max-width: 480px; width: 100%;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    animation: modalIn 0.3s ease;
+    max-height: 90vh; overflow-y: auto;
+}
+@keyframes modalIn {
+    from { opacity: 0; transform: scale(0.92) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+.modal-box h3 { color: #1f3a5f; font-size: 1.2rem; margin-bottom: 16px; padding-left: 12px; border-left: 4px solid #f6ad55; }
+.modal-box label { display: block; font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 5px; margin-top: 12px; }
+.modal-box input, .modal-box select {
+    width: 100%; padding: 10px 14px; border: 1.5px solid #e2e8f0;
+    border-radius: 8px; font-size: 0.9rem; font-family: inherit;
+    color: #2d3748; transition: 0.2s;
+}
+.modal-box input:focus, .modal-box select:focus { outline: none; border-color: #2c5282; box-shadow: 0 0 0 3px rgba(44,82,130,0.15); }
+.modal-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 22px; }
+.modal-actions button { padding: 11px 22px; border: none; border-radius: 8px; font-size: 0.9rem; font-weight: 600; cursor: pointer; font-family: inherit; transition: 0.2s; }
+.btn-batal { background: #e2e8f0; color: #2d3748; }
+.btn-batal:hover { background: #cbd5e0; }
+.btn-simpan { background: linear-gradient(135deg, #38a169, #2f855a); color: #fff; }
+.btn-simpan:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(56,161,105,0.4); }
+
+/* NOTIF POPUP */
+.notif-popup {
+    position: fixed; top: 20px; right: 20px;
+    background: linear-gradient(135deg, #38a169, #2f855a);
+    color: #fff; padding: 18px 26px; border-radius: 12px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.25);
+    font-weight: 600; z-index: 9999;
+    opacity: 0; transform: translateX(400px);
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.27, 1.55);
+    display: flex; align-items: center; gap: 12px;
+    max-width: 380px; font-size: 0.92rem;
+}
+.notif-popup.show { opacity: 1; transform: translateX(0); }
+.notif-popup .icon { font-size: 1.6rem; }
+.notif-popup.danger { background: linear-gradient(135deg, #e53e3e, #c53030); }
+
+footer { background: #142a45; color: #a0aec0; text-align: center; padding: 24px 20px; font-size: 0.85rem; margin-top: 40px; }
+
+@media (max-width: 768px) {
+    header h1 { font-size: 1.7rem; }
+    nav { flex-direction: column; padding: 0; }
+    nav a { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+    main { padding: 0 14px 30px; }
+    section { padding: 18px 16px; }
+    table { display: block; overflow-x: auto; white-space: nowrap; }
+    .user-bar { justify-content: center; text-align: center; }
+    .page-title { flex-direction: column; align-items: stretch; }
+    .modal-box { padding: 22px 20px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+    <h1>OPTi-MA</h1>
+    <p>Dashboard Admin</p>
+</header>
+
+<div class="user-bar">
+    <div class="info">
+        <span class="dot"></span>
+        <span id="userInfo">Memuat...</span>
+    </div>
+    <a href="login.html" onclick="logout()">Logout</a>
+</div>
+
+<nav>
+    <a href="dashboard_admin.html" class="active">Dashboard</a>
+</nav>
+
+<main>
+
+    <div class="page-title">
+        <div>
+            <h2 id="greeting">Halo, Admin!</h2>
+            <p>Kelola sistem OPTi-MA: laporan, user, dan data alat berat.</p>
+        </div>
+        <button class="btn-reset" onclick="resetData()">🗑 Reset Semua Data</button>
+    </div>
+
+    <!-- TAB NAVIGASI -->
+    <div class="tabs">
+        <button class="tab-btn active" onclick="switchTab('ringkasan')">📊 Ringkasan</button>
+        <button class="tab-btn" onclick="switchTab('laporan')">📋 Laporan</button>
+        <button class="tab-btn" onclick="switchTab('user')">👥 User</button>
+        <button class="tab-btn" onclick="switchTab('alat')">🚜 Alat Berat</button>
+    </div>
+
+    <!-- ===== TAB RINGKASAN ===== -->
+    <div class="tab-content active" id="tab-ringkasan">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="label">Total Laporan</div>
+                <div class="value" id="statTotal">0 <span>laporan</span></div>
+            </div>
+            <div class="stat-card orange">
+                <div class="label">Menunggu</div>
+                <div class="value" id="statMenunggu">0 <span>laporan</span></div>
+            </div>
+            <div class="stat-card blue">
+                <div class="label">Disetujui</div>
+                <div class="value" id="statDisetujui">0 <span>laporan</span></div>
+            </div>
+            <div class="stat-card green">
+                <div class="label">Selesai</div>
+                <div class="value" id="statSelesai">0 <span>laporan</span></div>
+            </div>
+        </div>
+
+        <section>
+            <h3>Aktivitas Terbaru</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Waktu</th>
+                        <th>Operator</th>
+                        <th>Unit</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelAktivitas">
+                    <tr><td colspan="4"><div class="empty-state"><div class="icon">📊</div><p>Belum ada aktivitas.</p></div></td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- ===== TAB LAPORAN ===== -->
+    <div class="tab-content" id="tab-laporan">
+        <section>
+            <h3>Semua Laporan <span class="count" id="countLaporan">0</span></h3>
+
+            <div class="filter-bar">
+                <button class="active" onclick="filterLaporan('semua', this)">Semua</button>
+                <button onclick="filterLaporan('menunggu', this)">Menunggu</button>
+                <button onclick="filterLaporan('disetujui', this)">Disetujui</button>
+                <button onclick="filterLaporan('proses', this)">Dalam Proses</button>
+                <button onclick="filterLaporan('selesai', this)">Selesai</button>
+                <button onclick="filterLaporan('ditolak', this)">Ditolak</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Operator</th>
+                        <th>Unit</th>
+                        <th>Jenis</th>
+                        <th>Hasil</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelLaporan">
+                    <tr><td colspan="6"><div class="empty-state"><div class="icon">📭</div><p>Belum ada laporan.</p></div></td></tr>
+                </tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- ===== TAB USER ===== -->
+    <div class="tab-content" id="tab-user">
+        <section>
+            <h3>
+                Daftar User <span class="count" id="countUser">0</span>
+                <button class="btn-tambah" onclick="bukaModalUser()">+ Tambah User</button>
+            </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nama</th>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Password</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelUser"></tbody>
+            </table>
+        </section>
+    </div>
+
+    <!-- ===== TAB ALAT ===== -->
+    <div class="tab-content" id="tab-alat">
+        <section>
+            <h3>
+                Data Alat Berat <span class="count" id="countAlat">0</span>
+                <button class="btn-tambah" onclick="bukaModalAlat()">+ Tambah Alat</button>
+            </h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nomor Unit</th>
+                        <th>Jenis Alat</th>
+                        <th>Golongan</th>
+                        <th>HM</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody id="tabelAlat"></tbody>
+            </table>
+        </section>
+    </div>
+
+</main>
+
+<footer>
+    <p>&copy; 2026 OPTi-MA. Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web.</p>
+</footer>
+
+<!-- MODAL USER -->
+<div class="modal-overlay" id="modalUser">
+    <div class="modal-box">
+        <h3>Tambah User Baru</h3>
+        <label>Nama Lengkap</label>
+        <input type="text" id="userNama" placeholder="Contoh: Eko Prasetyo">
+        <label>Username</label>
+        <input type="text" id="userUsername" placeholder="Contoh: eko">
+        <label>Password</label>
+        <input type="text" id="userPassword" placeholder="Contoh: 123">
+        <label>Role</label>
+        <select id="userRole">
+            <option value="operator">Operator</option>
+            <option value="supervisor">Supervisor</option>
+            <option value="mekanik">Mekanik</option>
+            <option value="admin">Admin</option>
+        </select>
+        <div class="modal-actions">
+            <button class="btn-batal" onclick="tutupModalUser()">Batal</button>
+            <button class="btn-simpan" onclick="simpanUser()">Simpan</button>
+        </div>
+    </div>
+</div>
+
+<!-- MODAL ALAT -->
+<div class="modal-overlay" id="modalAlat">
+    <div class="modal-box">
+        <h3>Tambah Alat Berat</h3>
+        <label>Nomor Unit</label>
+        <input type="text" id="alatUnit" placeholder="Contoh: EXC-004">
+        <label>Jenis Alat</label>
+        <select id="alatJenis">
+            <option value="Excavator">Excavator</option>
+            <option value="Bulldozer">Bulldozer</option>
+            <option value="Dump Truck">Dump Truck</option>
+            <option value="Crane">Crane</option>
+        </select>
+        <label>Hour Meter (HM)</label>
+        <input type="number" id="alatHM" placeholder="Contoh: 4000" min="0">
+        <label>Status</label>
+        <select id="alatStatus">
+            <option value="Aktif">Aktif</option>
+            <option value="Perlu Pemeriksaan">Perlu Pemeriksaan</option>
+            <option value="Rusak">Rusak</option>
+        </select>
+        <div class="modal-actions">
+            <button class="btn-batal" onclick="tutupModalAlat()">Batal</button>
+            <button class="btn-simpan" onclick="simpanAlat()">Simpan</button>
+        </div>
+    </div>
+</div>
+
+<!-- NOTIF POPUP -->
+<div class="notif-popup" id="notifPopup">
+    <span class="icon">✅</span>
+    <span id="notifText">Notifikasi</span>
+</div>
+
+<script>
+// ===== CEK SESI =====
+const session = JSON.parse(localStorage.getItem('optima_session') || 'null');
+if (!session || session.role !== 'admin') {
+    alert('Anda harus login sebagai Admin.');
+    window.location.href = 'login.html';
+}
+document.getElementById('userInfo').textContent = session.nama + ' — Admin';
+document.getElementById('greeting').textContent = 'Halo, ' + session.nama + '!';
+
+function logout() {
+    if (confirm('Yakin ingin logout?')) {
+        localStorage.removeItem('optima_session');
+    }
+}
+
+// ===== DATA HELPER =====
+function semuaLaporan() { return JSON.parse(localStorage.getItem('optima_laporan') || '[]'); }
+function semuaUser() { return JSON.parse(localStorage.getItem('optima_users') || '[]'); }
+function semuaAlat() { return JSON.parse(localStorage.getItem('optima_alat') || '[]'); }
+
+// Inisialisasi user default kalau kosong
+if (semuaUser().length === 0) {
+    const defaultUsers = [
+        { nama: 'Andi (Operator)', username: 'operator', password: '123', role: 'operator' },
+        { nama: 'Budi (Supervisor)', username: 'supervisor', password: '123', role: 'supervisor' },
+        { nama: 'Citra (Mekanik)', username: 'mekanik', password: '123', role: 'mekanik' },
+        { nama: 'Dewi (Admin)', username: 'admin', password: '123', role: 'admin' }
+    ];
+    localStorage.setItem('optima_users', JSON.stringify(defaultUsers));
+}
+
+// Inisialisasi alat default kalau kosong
+if (semuaAlat().length === 0) {
+    const defaultAlat = [
+        { unit: 'EXC-001', jenis: 'Excavator', golongan: 'Excavator', hm: 4250, status: 'Aktif' },
+        { unit: 'EXC-002', jenis: 'Excavator', golongan: 'Excavator', hm: 4100, status: 'Rusak' },
+        { unit: 'BDZ-001', jenis: 'Bulldozer', golongan: 'Bulldozer', hm: 3900, status: 'Aktif' },
+        { unit: 'BDZ-002', jenis: 'Bulldozer', golongan: 'Bulldozer', hm: 3870, status: 'Aktif' },
+        { unit: 'DMP-003', jenis: 'Dump Truck', golongan: 'Dump Truck', hm: 5120, status: 'Rusak' }
+    ];
+    localStorage.setItem('optima_alat', JSON.stringify(defaultAlat));
+}
+
+// ===== TAB SWITCH =====
+function switchTab(tab) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tab).classList.add('active');
+}
+
+// ===== RENDER RINGKASAN =====
+function renderRingkasan() {
+    const laporan = semuaLaporan();
+    const total = laporan.length;
+    const menunggu = laporan.filter(l => l.status === 'Menunggu Persetujuan Supervisor').length;
+    const disetujui = laporan.filter(l => l.status === 'Disetujui Supervisor' || l.status === 'Dalam Proses').length;
+    const selesai = laporan.filter(l => l.status === 'Selesai').length;
+
+    document.getElementById('statTotal').innerHTML = total + ' <span>laporan</span>';
+    document.getElementById('statMenunggu').innerHTML = menunggu + ' <span>laporan</span>';
+    document.getElementById('statDisetujui').innerHTML = disetujui + ' <span>laporan</span>';
+    document.getElementById('statSelesai').innerHTML = selesai + ' <span>laporan</span>';
+
+    // Aktivitas terbaru (5 terakhir)
+    const tbody = document.getElementById('tabelAktivitas');
+    if (laporan.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="4"><div class="empty-state"><div class="icon">📊</div><p>Belum ada aktivitas.</p></div></td></tr>';
+        return;
+    }
+    tbody.innerHTML = laporan.slice(0, 5).map(l => {
+        let bc = 'warning';
+        if (l.status === 'Disetujui Supervisor') bc = 'info';
+        else if (l.status === 'Dalam Proses') bc = 'primary';
+        else if (l.status === 'Selesai') bc = 'success';
+        else if (l.status === 'Ditolak Supervisor') bc = 'danger';
+        return `<tr>
+            <td>${l.tanggal}</td>
+            <td>${l.operator}</td>
+            <td><strong>${l.nomor_unit}</strong></td>
+            <td><span class="badge ${bc}">${l.status}</span></td>
+        </tr>`;
+    }).join('');
+}
+
+// ===== RENDER LAPORAN =====
+let filterAktif = 'semua';
+function filterLaporan(filter, btn) {
+    filterAktif = filter;
+    document.querySelectorAll('.filter-bar button').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderLaporan();
+}
+
+function renderLaporan() {
+    const laporan = semuaLaporan();
+    const tbody = document.getElementById('tabelLaporan');
+    document.getElementById('countLaporan').textContent = laporan.length;
+
+    let filtered = laporan;
+    if (filterAktif === 'menunggu') filtered = laporan.filter(l => l.status === 'Menunggu Persetujuan Supervisor');
+    else if (filterAktif === 'disetujui') filtered = laporan.filter(l => l.status === 'Disetujui Supervisor');
+    else if (filterAktif === 'proses') filtered = laporan.filter(l => l.status === 'Dalam Proses');
+    else if (filterAktif === 'selesai') filtered = laporan.filter(l => l.status === 'Selesai');
+    else if (filterAktif === 'ditolak') filtered = laporan.filter(l => l.status === 'Ditolak Supervisor');
+
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="6"><div class="empty-state"><div class="icon">📭</div><p>Tidak ada laporan untuk filter ini.</p></div></td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = filtered.map(l => {
+        let bc = 'warning';
+        if (l.status === 'Disetujui Supervisor') bc = 'info';
+        else if (l.status === 'Dalam Proses') bc = 'primary';
+        else if (l.status === 'Selesai') bc = 'success';
+        else if (l.status === 'Ditolak Supervisor') bc = 'danger';
+        return `<tr>
+            <td>${l.tanggal}</td>
+            <td>${l.operator}</td>
+            <td><strong>${l.nomor_unit}</strong></td>
+            <td>${l.jenis_alat}</td>
+            <td>${l.hasil_pemeriksaan || '-'}</td>
+            <td><span class="badge ${bc}">${l.status}</span></td>
+        </tr>`;
+    }).join('');
+}
+
+// ===== RENDER USER =====
+function renderUser() {
+    const users = semuaUser();
+    document.getElementById('countUser').textContent = users.length;
+    const tbody = document.getElementById('tabelUser');
+
+    tbody.innerHTML = users.map((u, i) => {
+        const roleBadge = { operator: 'info', supervisor: 'warning', mekanik: 'primary', admin: 'danger' };
+        return `<tr>
+            <td><strong>${u.nama}</strong></td>
+            <td>${u.username}</td>
+            <td><span class="badge ${roleBadge[u.role] || 'gray'}">${u.role}</span></td>
+            <td>${u.password}</td>
+            <td><button class="btn-aksi btn-hapus" onclick="hapusUser(${i})">Hapus</button></td>
+        </tr>`;
+    }).join('');
+}
+
+function bukaModalUser() { document.getElementById('modalUser').classList.add('show'); }
+function tutupModalUser() {
+    document.getElementById('modalUser').classList.remove('show');
+    document.getElementById('userNama').value = '';
+    document.getElementById('userUsername').value = '';
+    document.getElementById('userPassword').value = '';
+}
+function simpanUser() {
+    const nama = document.getElementById('userNama').value.trim();
+    const username = document.getElementById('userUsername').value.trim();
+    const password = document.getElementById('userPassword').value.trim();
+    const role = document.getElementById('userRole').value;
+
+    if (!nama || !username || !password) { showNotif('Lengkapi semua field!', 'danger'); return; }
+    if (semuaUser().some(u => u.username === username)) { showNotif('Username sudah dipakai!', 'danger'); return; }
+
+    const users = semuaUser();
+    users.push({ nama, username, password, role });
+    localStorage.setItem('optima_users', JSON.stringify(users));
+    tutupModalUser();
+    renderUser();
+    showNotif('User berhasil ditambahkan!');
+}
+function hapusUser(i) {
+    if (!confirm('Yakin hapus user ini?')) return;
+    const users = semuaUser();
+    users.splice(i, 1);
+    localStorage.setItem('optima_users', JSON.stringify(users));
+    renderUser();
+    showNotif('User dihapus.', 'danger');
+}
+
+// ===== RENDER ALAT =====
+function renderAlat() {
+    const alat = semuaAlat();
+    document.getElementById('countAlat').textContent = alat.length;
+    const tbody = document.getElementById('tabelAlat');
+
+    tbody.innerHTML = alat.map((a, i) => {
+        let bc = 'success';
+        if (a.status === 'Perlu Pemeriksaan') bc = 'warning';
+        else if (a.status === 'Rusak') bc = 'danger';
+        return `<tr>
+            <td><strong>${a.unit}</strong></td>
+            <td>${a.jenis}</td>
+            <td>${a.golongan}</td>
+            <td>${a.hm} HM</td>
+            <td><span class="badge ${bc}">${a.status}</span></td>
+            <td><button class="btn-aksi btn-hapus" onclick="hapusAlat(${i})">Hapus</button></td>
+        </tr>`;
+    }).join('');
+}
+
+function bukaModalAlat() { document.getElementById('modalAlat').classList.add('show'); }
+function tutupModalAlat() {
+    document.getElementById('modalAlat').classList.remove('show');
+    document.getElementById('alatUnit').value = '';
+    document.getElementById('alatHM').value = '';
+}
+function simpanAlat() {
+    const unit = document.getElementById('alatUnit').value.trim();
+    const jenis = document.getElementById('alatJenis').value;
+    const hm = document.getElementById('alatHM').value;
+    const status = document.getElementById('alatStatus').value;
+
+    if (!unit || !hm) { showNotif('Lengkapi semua field!', 'danger'); return; }
+    if (semuaAlat().some(a => a.unit === unit)) { showNotif('Nomor unit sudah ada!', 'danger'); return; }
+
+    const alat = semuaAlat();
+    alat.push({ unit, jenis, golongan: jenis, hm: parseInt(hm), status });
+    localStorage.setItem('optima_alat', JSON.stringify(alat));
+    tutupModalAlat();
+    renderAlat();
+    showNotif('Alat berhasil ditambahkan!');
+}
+function hapusAlat(i) {
+    if (!confirm('Yakin hapus alat ini?')) return;
+    const alat = semuaAlat();
+    alat.splice(i, 1);
+    localStorage.setItem('optima_alat', JSON.stringify(alat));
+    renderAlat();
+    showNotif('Alat dihapus.', 'danger');
+}
+
+// ===== RESET DATA =====
+function resetData() {
+    if (!confirm('⚠️ Hapus SEMUA data laporan, user, dan alat? Tindakan ini tidak bisa dibatalkan!')) return;
+    if (!confirm('Yakin? Data akan hilang permanen.')) return;
+
+    localStorage.removeItem('optima_laporan');
+    localStorage.removeItem('optima_users');
+    localStorage.removeItem('optima_alat');
+    showNotif('Semua data berhasil direset.', 'danger');
+    setTimeout(() => location.reload(), 1500);
+}
+
+// ===== NOTIF =====
+function showNotif(text, tipe) {
+    const popup = document.getElementById('notifPopup');
+    document.getElementById('notifText').textContent = text;
+    popup.className = 'notif-popup';
+    if (tipe === 'danger') popup.classList.add('danger');
+    popup.classList.add('show');
+    setTimeout(() => popup.classList.remove('show'), 3000);
+}
+
+// ===== INIT =====
+renderRingkasan();
+renderLaporan();
+renderUser();
+renderAlat();
+setInterval(() => { renderRingkasan(); renderLaporan(); }, 3000);
+</script>
+
+</body>
+</html>

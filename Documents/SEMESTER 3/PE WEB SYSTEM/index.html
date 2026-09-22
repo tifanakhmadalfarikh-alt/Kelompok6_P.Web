@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OPTi-MA - Beranda</title>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Segoe UI', Tahoma, sans-serif;
+            background: #f4f6fa; color: #2d3748; line-height: 1.65;
+        }
+        header {
+            background: linear-gradient(135deg, #1f3a5f, #2c5282);
+            color: #fff; padding: 40px 24px 28px; text-align: center;
+        }
+        header h1 { font-size: 2.6rem; letter-spacing: 3px; margin-bottom: 10px; font-weight: 700; }
+        header h1::after {
+            content: ""; display: block; width: 70px; height: 4px;
+            background: #f6ad55; margin: 12px auto 0; border-radius: 2px;
+        }
+        header p { font-size: 0.95rem; opacity: 0.9; max-width: 640px; margin: 0 auto; }
+        nav {
+            background: #142a45; display: flex; justify-content: center;
+            flex-wrap: wrap; position: sticky; top: 0; z-index: 100;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15); padding: 0 16px;
+        }
+        nav a {
+            color: #cbd5e0; text-decoration: none; padding: 15px 24px;
+            font-weight: 500; border-bottom: 3px solid transparent; transition: 0.25s;
+        }
+        nav a:hover {
+            color: #fff; background: rgba(255,255,255,0.06);
+            border-bottom-color: #f6ad55;
+        }
+        nav a.active { color: #fff; border-bottom-color: #f6ad55; }
+
+        main { max-width: 900px; margin: 40px auto; padding: 0 20px 60px; }
+
+        /* ===== TOMBOL SELAMAT DATANG ===== */
+        .welcome-btn {
+            width: 100%;
+            background: linear-gradient(135deg, #1f3a5f 0%, #2c5282 100%);
+            color: #fff;
+            border: none;
+            border-radius: 14px;
+            padding: 32px 34px;
+            font-size: 1.7rem;
+            font-weight: 700;
+            text-align: center;
+            cursor: pointer;
+            box-shadow: 0 8px 24px rgba(31,58,95,0.25);
+            transition: all 0.3s ease;
+            letter-spacing: 1px;
+            position: relative;
+            display: block;
+            font-family: inherit;
+        }
+        .welcome-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(31,58,95,0.35);
+        }
+        .welcome-btn .arrow {
+            display: inline-block;
+            margin-left: 12px;
+            font-size: 1.1rem;
+            transition: transform 0.35s ease;
+        }
+        .welcome-btn.open .arrow { transform: rotate(180deg); }
+        .welcome-btn::after {
+            content: "";
+            display: block;
+            width: 70px; height: 4px;
+            background: #f6ad55;
+            margin: 14px auto 0;
+            border-radius: 2px;
+        }
+
+        /* ===== PANEL YANG MUNCUL ===== */
+        .welcome-panel {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+            background: #fff;
+            border-radius: 14px;
+            margin-top: 0;
+            box-shadow: 0 6px 20px rgba(31,58,95,0.1);
+        }
+        .welcome-panel.open {
+            max-height: 2000px;
+            opacity: 1;
+            margin-top: 22px;
+            padding: 30px 32px;
+        }
+        .welcome-panel h2 {
+            color: #1f3a5f;
+            font-size: 1.4rem;
+            margin-bottom: 14px;
+            padding-left: 12px;
+            border-left: 4px solid #f6ad55;
+        }
+        .welcome-panel p { color: #4a5568; margin-bottom: 12px; font-size: 0.95rem; }
+
+        .welcome-panel article {
+            background: #f9fafc;
+            border-left: 5px solid #f6ad55;
+            border-radius: 10px;
+            padding: 18px 22px;
+            margin-bottom: 14px;
+            transition: 0.25s;
+        }
+        .welcome-panel article:hover {
+            transform: translateX(6px);
+            box-shadow: 0 6px 18px rgba(31,58,95,0.12);
+            background: #ffffff;
+        }
+        .welcome-panel article h3 {
+            color: #1f3a5f;
+            font-size: 1.05rem;
+            margin-bottom: 6px;
+        }
+        .welcome-panel article p { color: #718096; font-size: 0.9rem; margin: 0; }
+
+        footer {
+            background: #142a45; color: #a0aec0; text-align: center;
+            padding: 26px 20px; font-size: 0.85rem; margin-top: 40px;
+        }
+        @media (max-width: 768px) {
+            header h1 { font-size: 1.9rem; }
+            nav { flex-direction: column; padding: 0; }
+            nav a { text-align: center; border-bottom: 1px solid rgba(255,255,255,0.08); }
+            .welcome-btn { font-size: 1.2rem; padding: 24px 20px; }
+            .welcome-panel.open { padding: 22px 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>OPTi-MA</h1>
+        <p>Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web</p>
+    </header>
+
+    <nav>
+        <a href="index.html" class="active">Beranda</a>
+        <a href="form_pemeriksaan.html">Form Pemeriksaan</a>
+        <a href="dashboard.html">Dashboard</a>
+    </nav>
+
+    <main>
+
+        <!-- TOMBOL SELAMAT DATANG -->
+        <button class="welcome-btn" id="welcomeBtn">
+            Selamat Datang di OPTi-MA
+            <span class="arrow">▼</span>
+        </button>
+
+        <!-- PANEL YANG MUNCUL SAAT DIKLIK -->
+        <div class="welcome-panel" id="welcomePanel">
+
+            <h2>Tentang OPTi-MA</h2>
+            <p>
+                OPTi-MA merupakan sistem informasi berbasis web yang digunakan
+                untuk membantu proses pengawasan operasional dan pemeliharaan
+                alat berat secara lebih terstruktur.
+            </p>
+            <p>
+                Operator dapat melakukan pemeriksaan kondisi alat sebelum digunakan
+                dan mencatat <i>hour meter</i> (HM). Data tersebut dapat digunakan
+                oleh supervisor dan mekanik untuk membantu pemantauan kondisi serta
+                pemeliharaan alat berat.
+            </p>
+
+            <h2 style="margin-top: 24px;">Fitur</h2>
+
+            <article>
+                <h3>1. Checklist Pra-Operasi</h3>
+                <p>Digunakan oleh operator untuk mencatat hasil pemeriksaan kondisi alat berat sebelum digunakan dalam kegiatan operasional.</p>
+            </article>
+
+            <article>
+                <h3>2. Pelaporan Hour Meter (HM)</h3>
+                <p>Digunakan untuk mencatat jam kerja alat berat sebagai dasar pemantauan penggunaan dan penentuan jadwal pemeliharaan.</p>
+            </article>
+
+            <article>
+                <h3>3. Digital Handover Ticketing</h3>
+                <p>Digunakan untuk mencatat pemeriksaan kelayakan dan kondisi alat sebelum alat digunakan atau diserahterimakan kepada operator.</p>
+            </article>
+
+            <article>
+                <h3>4. Riwayat Kerusakan dan Pemeliharaan</h3>
+                <p>Digunakan untuk menyimpan data kerusakan dan tindakan pemeliharaan sehingga riwayat kondisi alat dapat ditelusuri kembali.</p>
+            </article>
+
+            <article>
+                <h3>5. Preventive Maintenance</h3>
+                <p>Digunakan untuk membantu memantau jadwal pemeliharaan berdasarkan nilai <i>hour meter</i> dan interval pemeliharaan yang telah ditentukan.</p>
+            </article>
+
+            <article>
+                <h3>6. Analisis Risiko Kerusakan</h3>
+                <p>Digunakan untuk memberikan informasi pendukung mengenai potensi risiko kerusakan berdasarkan data historis operasional dan pemeliharaan.</p>
+            </article>
+
+        </div>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 OPTi-MA. Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web.</p>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('welcomeBtn');
+        const panel = document.getElementById('welcomePanel');
+
+        btn.addEventListener('click', function () {
+            btn.classList.toggle('open');
+            panel.classList.toggle('open');
+        });
+    </script>
+
+</body>
+</html>
