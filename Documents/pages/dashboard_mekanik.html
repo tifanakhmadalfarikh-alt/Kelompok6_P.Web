@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Mekanik - OPTi-MA</title>
+    <!-- Memanggil file CSS yang sama dengan halaman Admin -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>OPTi-MA</h1>
+        <p>Dashboard Mekanik (Tahap 1 - Mockup UI)</p>
+    </header>
+
+    <nav>
+        <a href="dashboard_mekanik.html" class="active">Dashboard</a>
+        <a href="#">Daftar Pekerjaan</a>
+        <a href="#">Riwayat Perbaikan</a>
+        <a href="../login.html" class="logout">Logout</a>
+    </nav>
+
+    <main>
+        <!-- Banner Notifikasi Pekerjaan Baru -->
+        <div class="banner-notif">
+            <span class="icon" style="font-size: 24px;">🔧</span>
+            <div class="text">
+                <span>Ada 2 pekerjaan baru untuk Anda!</span>
+                <small>Laporan yang sudah disetujui supervisor siap dikerjakan.</small>
+            </div>
+        </div>
+
+        <!-- Judul Halaman -->
+        <div class="page-title">
+            <h2>Halo, Mekanik!</h2>
+            <p>Daftar pekerjaan perbaikan alat berat yang sudah disetujui supervisor.</p>
+        </div>
+
+        <!-- Ringkasan Statistik -->
+        <div class="stats">
+            <div class="card">
+                <h3>Pekerjaan Baru</h3>
+                <p>2</p>
+            </div>
+            <div class="card">
+                <h3>Sedang Dikerjakan</h3>
+                <p>1</p>
+            </div>
+            <div class="card">
+                <h3>Selesai</h3>
+                <p>15</p>
+            </div>
+        </div>
+
+        <!-- Tabel Data (Native HTML Table) -->
+        <section class="table-section">
+            <h3>Daftar Pekerjaan Perbaikan</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal Disetujui</th>
+                        <th>Nomor Unit</th>
+                        <th>Komponen</th>
+                        <th>Jenis Kerusakan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>26 Sep 2026</td>
+                        <td><strong>EXC-001</strong></td>
+                        <td>Hidrolik</td>
+                        <td>Selang Bocor</td>
+                        <td><span class="badge warning">Disetujui Supervisor</span></td>
+                        <td><button class="btn-aksi btn-mulai">▶ Mulai Kerjakan</button></td>
+                    </tr>
+                    <tr>
+                        <td>25 Sep 2026</td>
+                        <td><strong>BDZ-002</strong></td>
+                        <td>Mesin</td>
+                        <td>Overheat</td>
+                        <td><span class="badge info">Dalam Proses</span></td>
+                        <td><button class="btn-aksi btn-selesai">✓ Selesai</button></td>
+                    </tr>
+                    <tr>
+                        <td>24 Sep 2026</td>
+                        <td><strong>DMP-003</strong></td>
+                        <td>Ban</td>
+                        <td>Aus/Gundul</td>
+                        <td><span class="badge success">Selesai</span></td>
+                        <td><button class="btn-aksi">Detail</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+    </footer>
+
+</body>
+</html>

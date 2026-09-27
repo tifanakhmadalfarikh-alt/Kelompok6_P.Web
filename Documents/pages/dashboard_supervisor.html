@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Supervisor - OPTi-MA</title>
+    <!-- Memanggil file CSS utama -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>OPTi-MA</h1>
+    </header>
+
+    <nav>
+        <a href="dashboard_supervisor.html" class="active">Dashboard</a>
+        <a href="#">Daftar Laporan</a>
+        <a href="#">Riwayat Persetujuan</a>
+        <a href="../login.html" class="logout">Logout</a>
+    </nav>
+
+    <main>
+        <!-- BANNER NOTIFIKASI -->
+        <div class="banner-info">
+            <span class="icon" style="font-size: 24px;">🔔</span>
+            <div class="text">
+                <span>Ada 2 laporan baru dari operator!</span>
+                <small>Silakan tinjau dan setujui/tolak laporan di bawah.</small>
+            </div>
+        </div>
+
+        <!-- PAGE TITLE -->
+        <div class="page-title">
+            <h2>Halo, Supervisor!</h2>
+            <p>Tinjau dan setujui laporan kerusakan dari operator di sini.</p>
+        </div>
+
+        <!-- STATISTIK -->
+        <div class="stats">
+            <div class="card">
+                <h3>Total Laporan</h3>
+                <p>24</p>
+            </div>
+            <div class="card">
+                <h3>Menunggu Persetujuan</h3>
+                <p>2</p>
+            </div>
+            <div class="card">
+                <h3>Disetujui</h3>
+                <p>19</p>
+            </div>
+            <div class="card">
+                <h3>Ditolak</h3>
+                <p>3</p>
+            </div>
+        </div>
+
+        <!-- TABEL DATA (Native HTML Table) -->
+        <section class="table-section">
+            <h3>Daftar Laporan dari Operator</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Operator</th>
+                        <th>Nomor Unit</th>
+                        <th>Jenis Alat</th>
+                        <th>Hasil</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>26 Sep 2026</td>
+                        <td>Andi Saputra</td>
+                        <td><strong>EXC-001</strong></td>
+                        <td>Excavator</td>
+                        <td>Selang hidrolik bocor</td>
+                        <td><span class="badge warning">Menunggu Persetujuan</span></td>
+                        <td>
+                            <button class="btn-aksi btn-approve">✓ Setujui</button>
+                            <button class="btn-aksi btn-reject">✗ Tolak</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>26 Sep 2026</td>
+                        <td>Budi Santoso</td>
+                        <td><strong>CRN-005</strong></td>
+                        <td>Crane</td>
+                        <td>Kabel sling aus</td>
+                        <td><span class="badge warning">Menunggu Persetujuan</span></td>
+                        <td>
+                            <button class="btn-aksi btn-approve">✓ Setujui</button>
+                            <button class="btn-aksi btn-reject">✗ Tolak</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>25 Sep 2026</td>
+                        <td>Citra Lestari</td>
+                        <td><strong>BDZ-002</strong></td>
+                        <td>Bulldozer</td>
+                        <td>Mesin overheat</td>
+                        <td><span class="badge success">Disetujui Supervisor</span></td>
+                        <td><button class="btn-aksi">Detail</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+    </footer>
+
+</body>
+</html>

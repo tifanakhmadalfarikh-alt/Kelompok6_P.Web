@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Operator - OPTi-MA</title>
+    <!-- Memanggil file CSS utama -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+    <header>
+        <h1>OPTi-MA</h1>
+    </header>
+
+    <nav>
+        <a href="dashboard_operator.html" class="active">Dashboard</a>
+        <a href="form_pemeriksaan.html">Form Pemeriksaan</a>
+        <a href="../login.html" class="logout">Logout</a>
+    </nav>
+
+    <main>
+        <!-- BANNER NOTIFIKASI -->
+        <div class="banner-warning">
+            <span class="icon" style="font-size: 24px;">🔔</span>
+            <div class="text">
+                <span>Anda punya 1 laporan yang ditanggapi Supervisor!</span>
+                <small>Silakan cek status laporan terbaru Anda di tabel bawah.</small>
+            </div>
+        </div>
+
+        <!-- PAGE TITLE -->
+        <div class="page-title" style="display: flex; justify-content: space-between; align-items: center;">
+            <div>
+                <h2>Halo, Operator!</h2>
+                <p>Kelola laporan pemeriksaan alat berat Anda di sini.</p>
+            </div>
+            <a href="form_pemeriksaan.html" class="btn-lapor">📝 Buat Laporan Baru</a>
+        </div>
+
+        <!-- STATISTIK -->
+        <div class="stats">
+            <div class="card">
+                <h3>Total Laporan</h3>
+                <p>12</p>
+            </div>
+            <div class="card">
+                <h3>Disetujui</h3>
+                <p>8</p>
+            </div>
+            <div class="card">
+                <h3>Menunggu</h3>
+                <p>3</p>
+            </div>
+            <div class="card">
+                <h3>Ditolak</h3>
+                <p>1</p>
+            </div>
+        </div>
+
+        <!-- RIWAYAT LAPORAN (Native HTML Table) -->
+        <section class="table-section">
+            <h3>Riwayat Laporan Saya</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Tanggal</th>
+                        <th>Nomor Unit</th>
+                        <th>Jenis Alat</th>
+                        <th>Hasil Pemeriksaan</th>
+                        <th>Status</th>
+                        <th>Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>26 Sep 2026</td>
+                        <td><strong>EXC-001</strong></td>
+                        <td>Excavator</td>
+                        <td>Ada kerusakan pada selang hidrolik</td>
+                        <td><span class="badge warning">Menunggu Persetujuan</span></td>
+                        <td><button class="btn-aksi">Lihat Detail</button></td>
+                    </tr>
+                    <tr>
+                        <td>25 Sep 2026</td>
+                        <td><strong>BDZ-002</strong></td>
+                        <td>Bulldozer</td>
+                        <td>Mesin overheat saat dioperasikan</td>
+                        <td><span class="badge success">Disetujui Supervisor</span></td>
+                        <td><button class="btn-aksi">Lihat Detail</button></td>
+                    </tr>
+                    <tr>
+                        <td>22 Sep 2026</td>
+                        <td><strong>DMP-003</strong></td>
+                        <td>Dump Truck</td>
+                        <td>Lampu sein kiri mati</td>
+                        <td><span class="badge danger">Ditolak Supervisor</span></td>
+                        <td><button class="btn-aksi">Lihat Detail</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- JADWAL MAINTENANCE -->
+        <section class="table-section" style="margin-top: 30px;">
+            <h3>Jadwal Preventive Maintenance</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Nomor Unit</th>
+                        <th>Jenis Alat</th>
+                        <th>HM Saat Ini</th>
+                        <th>Interval</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>EXC-001</td>
+                        <td>Excavator</td>
+                        <td>4250</td>
+                        <td>500 HM</td>
+                        <td><span class="badge warning">Segera Dijadwalkan</span></td>
+                    </tr>
+                    <tr>
+                        <td>BDZ-002</td>
+                        <td>Bulldozer</td>
+                        <td>3870</td>
+                        <td>500 HM</td>
+                        <td><span class="badge success">Belum Jatuh Tempo</span></td>
+                    </tr>
+                    <tr>
+                        <td>DMP-003</td>
+                        <td>Dump Truck</td>
+                        <td>5120</td>
+                        <td>500 HM</td>
+                        <td><span class="badge danger">Perlu Pemeliharaan</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+    </main>
+
+    <footer>
+        <p>&copy; 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+    </footer>
+
+</body>
+</html>
