@@ -217,3 +217,85 @@ footer {
     background-color: #fed7d7; 
     color: #742a2a;
 }
+/* --- Tambahan Khusus Form Pemeriksaan --- */
+
+fieldset {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background-color: #fcfdff;
+}
+
+legend {
+    font-weight: bold;
+    color: #1f3a5f;
+    padding: 5px 10px;
+    background-color: white;
+    border-radius: 5px;
+    border: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+form p {
+    margin-bottom: 15px;
+}
+
+form label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+    display: inline-block;
+    margin-bottom: 5px;
+}
+
+input[type="text"], 
+input[type="number"], 
+select, 
+textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+input[type="radio"] {
+    margin-right: 5px;
+    accent-color: #1f3a5f;
+}
+
+input[type="radio"] + label {
+    margin-right: 20px;
+    font-weight: normal;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.btn-submit {
+    background-color: #1f3a5f;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-submit:hover { background-color: #2c5282; }
+
+.btn-reset {
+    background-color: #e2e8f0;
+    color: #333;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+.btn-reset:hover { background-color: #cbd5e0; }
