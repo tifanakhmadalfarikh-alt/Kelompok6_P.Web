@@ -327,3 +327,65 @@ footer {
 }
 
 .info-akun strong { color: #1f3a5f; }
+/* =========================================
+   10. HALAMAN BERANDA (INDEX)
+========================================= */
+.hero-section {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(31,58,95,0.08);
+    margin-bottom: 40px;
+    border-left: 6px solid #f6ad55;
+}
+
+.hero-section h2 {
+    color: #1f3a5f;
+    margin-bottom: 15px;
+    font-size: 1.6rem;
+}
+
+.hero-section p {
+    color: #4a5568;
+    margin-bottom: 10px;
+    line-height: 1.7;
+}
+
+.section-title {
+    color: #1f3a5f;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 1.5rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+}
+
+.feature-card {
+    background: #fff;
+    padding: 25px 20px;
+    border-radius: 10px;
+    border-top: 4px solid #2c5282;
+    box-shadow: 0 4px 14px rgba(31,58,95,0.08);
+    transition: transform 0.2s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(31,58,95,0.15);
+}
+
+.feature-card h3 {
+    color: #1f3a5f;
+    font-size: 1.1rem;
+    margin-bottom: 10px;
+}
+
+.feature-card p {
+    color: #718096;
+    font-size: 0.9rem;
+    line-height: 1.5;
+}
