@@ -4,108 +4,145 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Supervisor - OPTi-MA</title>
+    <!-- Memanggil file CSS utama -->
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
 <body>
 
-    <!-- Header dengan Sub-Judul -->
+    <!-- Header -->
     <header>
         <h1>OPTi-MA</h1>
-        <p>Sistem Pengawasan Alat Berat</p>
+        <p>Sistem Pengawasan Alat Berat (Tahap 1 - Mockup UI)</p>
     </header>
 
     <!-- Navigasi -->
     <nav>
         <a href="dashboard_supervisor.html" class="active">Dashboard</a>
-        <a href="#">Daftar Laporan</a>
-        <a href="#">Riwayat Persetujuan</a>
+        <a href="#">Status Alat</a>
+        <a href="#">Persetujuan Laporan</a>
         <a href="../login.html" class="logout">Logout</a>
     </nav>
 
     <main>
         <!-- Banner Notifikasi -->
         <div class="banner-info">
-            <span class="icon" style="font-size: 28px;">🔔</span>
+            <span class="icon" style="font-size: 28px;">⚠️</span>
             <div class="text">
-                <span>Ada 2 laporan baru dari operator!</span>
-                <small>Silakan tinjau dan setujui/tolak laporan di bawah.</small>
+                <span>Perhatian: 2 Unit Mengalami Breakdown!</span>
+                <small>Segera tinjau laporan kerusakan dari operator dan jadwalkan perbaikan dengan mekanik.</small>
             </div>
         </div>
 
         <!-- Judul Halaman -->
         <div class="page-title">
             <h2>Halo, Supervisor!</h2>
-            <p>Tinjau dan setujui laporan kerusakan dari operator di sini.</p>
+            <p>Pantau ketersediaan armada alat berat dan kelola persetujuan operasional harian.</p>
         </div>
 
-        <!-- Kartu Statistik Berwarna -->
+        <!-- KARTU STATISTIK: FOKUS PADA KESIAPAN ALAT (ASSET READINESS) -->
         <div class="stats">
-            <div class="card">
-                <h3>Total Laporan</h3>
-                <p>24</p>
+            <div class="card green">
+                <h3>Ready (Tersedia)</h3>
+                <p>12</p>
+            </div>
+            <div class="card blue">
+                <h3>In Use (Beroperasi)</h3>
+                <p>8</p>
             </div>
             <div class="card orange">
-                <h3>Menunggu Persetujuan</h3>
-                <p>2</p>
-            </div>
-            <div class="card green">
-                <h3>Disetujui</h3>
-                <p>19</p>
+                <h3>Maintenance</h3>
+                <p>3</p>
             </div>
             <div class="card red">
-                <h3>Ditolak</h3>
-                <p>3</p>
+                <h3>Breakdown (Rusak)</h3>
+                <p>2</p>
             </div>
         </div>
 
-        <!-- Tabel Daftar Laporan -->
+        <!-- TABEL 1: PEMANTAUAN STATUS ALAT BERAT (FOKUS UTAMA) -->
         <section class="table-section">
-            <h3>Daftar Laporan dari Operator</h3>
+            <h3>Pantauan Status Armada (Real-time)</h3>
             <table>
                 <thead>
                     <tr>
-                        <th>Tanggal</th>
-                        <th>Operator</th>
                         <th>Nomor Unit</th>
                         <th>Jenis Alat</th>
-                        <th>Hasil</th>
-                        <th>Status</th>
+                        <th>HM Terakhir</th>
+                        <th>Posisi / Operator</th>
+                        <th>Status Armada</th>
                         <th>Aksi</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr>
-                        <td>26 Sep 2026</td>
-                        <td>Andi Saputra</td>
                         <td><strong>EXC-001</strong></td>
                         <td>Excavator</td>
-                        <td>Selang hidrolik bocor</td>
-                        <td><span class="badge warning">Menunggu Persetujuan</span></td>
-                        <td>
-                            <button class="btn-aksi btn-approve">✓ Setujui</button>
-                            <button class="btn-aksi btn-reject">✗ Tolak</button>
-                        </td>
+                        <td>4250 HM</td>
+                        <td>Pit A / Andi Saputra</td>
+                        <td><span class="badge danger">Breakdown</span></td>
+                        <td><button class="btn-aksi btn-detail">Lacak Masalah</button></td>
                     </tr>
                     <tr>
-                        <td>26 Sep 2026</td>
-                        <td>Budi Santoso</td>
-                        <td><strong>CRN-005</strong></td>
-                        <td>Crane</td>
-                        <td>Kabel sling aus</td>
-                        <td><span class="badge warning">Menunggu Persetujuan</span></td>
-                        <td>
-                            <button class="btn-aksi btn-approve">✓ Setujui</button>
-                            <button class="btn-aksi btn-reject">✗ Tolak</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>25 Sep 2026</td>
-                        <td>Citra Lestari</td>
                         <td><strong>BDZ-002</strong></td>
                         <td>Bulldozer</td>
-                        <td>Mesin overheat</td>
-                        <td><span class="badge success">Disetujui Supervisor</span></td>
-                        <td><button class="btn-aksi btn-detail">Lihat Detail</button></td>
+                        <td>3870 HM</td>
+                        <td>Pit B / Citra Lestari</td>
+                        <td><span class="badge info">In Use</span></td>
+                        <td><button class="btn-aksi btn-detail">Detail</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>CRN-005</strong></td>
+                        <td>Crane</td>
+                        <td>1200 HM</td>
+                        <td>Workshop / -</td>
+                        <td><span class="badge warning">Maintenance</span></td>
+                        <td><button class="btn-aksi btn-detail">Cek Progres</button></td>
+                    </tr>
+                    <tr>
+                        <td><strong>DMP-003</strong></td>
+                        <td>Dump Truck</td>
+                        <td>5120 HM</td>
+                        <td>Parkir Utama / -</td>
+                        <td><span class="badge success">Ready</span></td>
+                        <td><button class="btn-aksi btn-detail">Detail</button></td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- TABEL 2: PERSETUJUAN LAPORAN PRA-OPERASI (FOKUS KEDUA) -->
+        <section class="table-section" style="margin-top: 30px;">
+            <h3>Laporan Menunggu Persetujuan Anda</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Waktu Lapor</th>
+                        <th>Operator</th>
+                        <th>Nomor Unit</th>
+                        <th>Kondisi Laporan</th>
+                        <th>Aksi Supervisor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Hari ini, 07:15</td>
+                        <td>Andi Saputra</td>
+                        <td><strong>EXC-001</strong></td>
+                        <td>Selang hidrolik bocor parah</td>
+                        <td>
+                            <button class="btn-aksi btn-approve">✓ Setujui (Kirim ke Mekanik)</button>
+                            <button class="btn-aksi btn-reject">✗ Tolak</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Hari ini, 07:30</td>
+                        <td>Budi Santoso</td>
+                        <td><strong>CRN-005</strong></td>
+                        <td>Jadwal servis rutin 500HM</td>
+                        <td>
+                            <button class="btn-aksi btn-approve">✓ Setujui (Kirim ke Mekanik)</button>
+                            <button class="btn-aksi btn-reject">✗ Tolak</button>
+                        </td>
                     </tr>
                 </tbody>
             </table>

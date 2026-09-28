@@ -122,6 +122,9 @@ main {
 .card.red { border-top-color: #e53e3e; }
 .card.red p { color: #e53e3e; }
 
+.card.blue { border-top-color: #3182ce; }
+.card.blue p { color: #3182ce; }
+
 /* =========================================
    5. BANNER NOTIFIKASI
 ========================================= */
@@ -388,4 +391,124 @@ footer {
     color: #718096;
     font-size: 0.9rem;
     line-height: 1.5;
+}
+/* =========================================
+   11. FORM PEMERIKSAAN
+========================================= */
+
+/* Kotak Pengelompokan (Fieldset) */
+fieldset {
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 20px 25px;
+    margin-bottom: 25px;
+    background-color: #fcfdff;
+}
+
+/* Judul di atas Fieldset (Legend) */
+legend {
+    font-weight: 700;
+    color: #1f3a5f;
+    padding: 6px 14px;
+    background-color: white;
+    border-radius: 6px;
+    border: 1.5px solid #e2e8f0;
+    font-size: 0.95rem;
+}
+
+form p {
+    margin-bottom: 16px;
+}
+
+/* Label Judul Input (Misal: "Nama Operator:") */
+form label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: #2d3748;
+    display: block; /* Membuat label berada di atas input */
+    margin-bottom: 8px;
+}
+
+/* Kolom Input Teks dan Dropdown */
+input[type="text"], 
+input[type="number"], 
+select, 
+textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 0.95rem;
+    color: #2d3748;
+    background: #fff;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+input[type="text"]:focus, 
+input[type="number"]:focus, 
+select:focus, 
+textarea:focus {
+    outline: none;
+    border-color: #2c5282;
+    box-shadow: 0 0 0 3px rgba(44,82,130,0.1);
+}
+
+/* Khusus Radio Button (Bulatan Pilihan) */
+input[type="radio"] {
+    margin-right: 8px;
+    accent-color: #1f3a5f;
+    vertical-align: middle;
+    transform: scale(1.1);
+}
+
+/* Label di sebelah Radio Button (Misal: "Normal") */
+input[type="radio"] + label {
+    display: inline-block;
+    margin-right: 25px;
+    font-weight: 500;
+    color: #4a5568;
+    vertical-align: middle;
+    margin-bottom: 0; /* Menimpa margin label judul */
+}
+
+/* Area Tombol Bawah */
+.btn-group {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 20px;
+    border-top: 1px solid #e2e8f0;
+}
+
+.btn-submit {
+    background: linear-gradient(135deg, #1f3a5f, #2c5282);
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+.btn-submit:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 6px 15px rgba(31,58,95,0.3); 
+}
+
+.btn-reset {
+    background-color: #e2e8f0;
+    color: #4a5568;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 0.95rem;
+    transition: 0.2s;
+}
+.btn-reset:hover { 
+    background-color: #cbd5e0; 
 }
