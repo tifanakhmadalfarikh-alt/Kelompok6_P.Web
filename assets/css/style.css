@@ -299,3 +299,111 @@ input[type="radio"] + label {
     font-weight: bold;
 }
 .btn-reset:hover { background-color: #cbd5e0; }
+/* --- Tambahan Khusus Halaman Beranda (Index) --- */
+
+/* Tombol Selamat Datang */
+.welcome-btn {
+    width: 100%;
+    background: linear-gradient(135deg, #1f3a5f 0%, #2c5282 100%);
+    color: #fff;
+    border: none;
+    border-radius: 14px;
+    padding: 32px 34px;
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 8px 24px rgba(31,58,95,0.25);
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
+    position: relative;
+    display: block;
+    font-family: inherit;
+}
+
+.welcome-btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 30px rgba(31,58,95,0.35);
+}
+
+.welcome-btn .arrow {
+    display: inline-block;
+    margin-left: 12px;
+    font-size: 1.1rem;
+    transition: transform 0.35s ease;
+}
+
+.welcome-btn.open .arrow {
+    transform: rotate(180deg);
+}
+
+.welcome-btn::after {
+    content: "";
+    display: block;
+    width: 70px;
+    height: 4px;
+    background: #f6ad55;
+    margin: 14px auto 0;
+    border-radius: 2px;
+}
+
+/* Panel Informasi (Accordion) */
+.welcome-panel {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease;
+    background: #fff;
+    border-radius: 14px;
+    margin-top: 0;
+    box-shadow: 0 6px 20px rgba(31,58,95,0.1);
+}
+
+.welcome-panel.open {
+    max-height: 2000px;
+    opacity: 1;
+    margin-top: 22px;
+    padding: 30px 32px;
+}
+
+.welcome-panel h2 {
+    color: #1f3a5f;
+    font-size: 1.4rem;
+    margin-bottom: 14px;
+    padding-left: 12px;
+    border-left: 4px solid #f6ad55;
+}
+
+.welcome-panel p {
+    color: #4a5568;
+    margin-bottom: 12px;
+    font-size: 0.95rem;
+}
+
+/* Kartu Fitur */
+.welcome-panel article {
+    background: #f9fafc;
+    border-left: 5px solid #f6ad55;
+    border-radius: 10px;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    transition: 0.25s;
+}
+
+.welcome-panel article:hover {
+    transform: translateX(6px);
+    box-shadow: 0 6px 18px rgba(31,58,95,0.12);
+    background: #ffffff;
+}
+
+.welcome-panel article h3 {
+    color: #1f3a5f;
+    font-size: 1.05rem;
+    margin-bottom: 6px;
+}
+
+.welcome-panel article p {
+    color: #718096;
+    font-size: 0.9rem;
+    margin: 0;
+}
