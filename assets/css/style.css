@@ -407,3 +407,141 @@ input[type="radio"] + label {
     font-size: 0.9rem;
     margin: 0;
 }
+
+/* --- Tambahan Khusus Halaman Login --- */
+
+.login-page {
+    background: linear-gradient(135deg, #1f3a5f 0%, #2c5282 60%, #1f3a5f 100%);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #2d3748;
+}
+
+.login-box {
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    width: 100%;
+    max-width: 420px;
+    padding: 40px 36px 32px;
+    position: relative;
+    overflow: hidden;
+}
+
+.login-box::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, #1f3a5f, #f6ad55, #1f3a5f);
+}
+
+.logo {
+    text-align: center;
+    margin-bottom: 26px;
+}
+
+.logo h1 {
+    color: #1f3a5f;
+    font-size: 2.2rem;
+    letter-spacing: 3px;
+    font-weight: 700;
+}
+
+.logo h1::after {
+    content: "";
+    display: block;
+    width: 60px;
+    height: 4px;
+    background: #f6ad55;
+    margin: 10px auto 0;
+    border-radius: 2px;
+}
+
+.logo p {
+    color: #718096;
+    font-size: 0.82rem;
+    margin-top: 12px;
+    line-height: 1.5;
+}
+
+.form-group {
+    margin-bottom: 18px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 0.85rem;
+    color: #4a5568;
+    font-weight: 600;
+    margin-bottom: 6px;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1.5px solid #e2e8f0;
+    border-radius: 10px;
+    font-size: 0.95rem;
+    font-family: inherit;
+    color: #2d3748;
+    background: #f9fafc;
+    transition: 0.2s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    outline: none;
+    border-color: #2c5282;
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(44,82,130,0.15);
+}
+
+.btn-login {
+    width: 100%;
+    padding: 14px;
+    margin-top: 8px;
+    background: linear-gradient(135deg, #1f3a5f, #2c5282);
+    color: #fff;
+    border: none;
+    border-radius: 10px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s;
+    font-family: inherit;
+    letter-spacing: 0.5px;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(31,58,95,0.4);
+}
+
+.info-akun {
+    margin-top: 22px;
+    padding: 14px 16px;
+    background: #edf2f7;
+    border-radius: 10px;
+    font-size: 0.78rem;
+    color: #4a5568;
+    line-height: 1.7;
+    border-left: 4px solid #f6ad55;
+}
+
+.info-akun strong { color: #1f3a5f; }
+
+.info-akun code {
+    background: #fff;
+    padding: 1px 6px;
+    border-radius: 4px;
+    font-size: 0.78rem;
+    color: #2c5282;
+    font-weight: 600;
+}
