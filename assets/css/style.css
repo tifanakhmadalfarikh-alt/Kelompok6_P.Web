@@ -407,3 +407,44 @@ input[type="radio"] + label {
     font-size: 0.9rem;
     margin: 0;
 }
+
+/* --- Tambahan Khusus Dashboard Supervisor --- */
+
+.banner-info {
+    background-color: #bee3f8;
+    border-left: 5px solid #2c5282;
+    padding: 15px 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.banner-info .text span {
+    font-weight: bold;
+    color: #2a4365;
+    display: block;
+}
+
+.banner-info .text small {
+    color: #2c5282;
+}
+
+.btn-approve { 
+    background-color: #c6f6d5; 
+    color: #22543d; 
+}
+.btn-approve:hover { 
+    background-color: #38a169; 
+    color: white; 
+}
+
+.btn-reject { 
+    background-color: #fed7d7; 
+    color: #742a2a; 
+}
+.btn-reject:hover { 
+    background-color: #e53e3e; 
+    color: white; 
+}
