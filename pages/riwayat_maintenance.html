@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Riwayat Log Maintenance - OPTi-MA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Mekanik Dashboard</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_mekanik.html">📊 Dashboard</a>
+            <a href="riwayat_maintenance.html" class="active">🔧 Riwayat Maintenance</a>
+            <a href="detail_unit.html">📋 Detail Unit & Servis</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title">
+                <span class="form-header-badge">Arsip & Log</span>
+                <h2>Riwayat Log Maintenance & Perbaikan</h2>
+                <p>Rekapitulasi seluruh catatan pemeliharaan dan pergantian suku cadang armada alat berat.</p>
+            </div>
+
+            <!-- FILTER & PENCARIAN -->
+            <div style="display: flex; justify-content: space-between; gap: 15px; margin-bottom: 20px; flex-wrap: wrap;">
+                <input type="text" placeholder="Cari nomor unit atau mekanik..." style="max-width: 320px; padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px;">
+                <div style="display: flex; gap: 10px;">
+                    <select style="padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: white;">
+                        <option value="">Semua Status</option>
+                        <option value="selesai">Selesai</option>
+                        <option value="proses">Dalam Proses</option>
+                    </select>
+                    <select style="padding: 10px 14px; border: 1.5px solid #e2e8f0; border-radius: 8px; background: white;">
+                        <option value="">Semua Alat</option>
+                        <option value="excavator">Excavator</option>
+                        <option value="bulldozer">Bulldozer</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- TABEL ARSIP PEMELIHARAAN -->
+            <section class="table-section">
+                <h3>Daftar Arsip Pemeliharaan</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Unit Alat</th>
+                            <th>Jenis Aktivitas</th>
+                            <th>Keterangan / Suku Cadang</th>
+                            <th>Mekanik</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>12 Okt 2026</td>
+                            <td><strong>EXC-001</strong></td>
+                            <td>Servis Berkala 4000 HM</td>
+                            <td>Penggantian Filter Oli, Filter Solar, Oli Mesin</td>
+                            <td>Budi</td>
+                            <td><span class="badge success">Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>05 Sep 2026</td>
+                            <td><strong>BDZ-002</strong></td>
+                            <td>Perbaikan Hidrolik</td>
+                            <td>Penggantian Seal Hose Hidrolik Utama</td>
+                            <td>Joko</td>
+                            <td><span class="badge success">Selesai</span></td>
+                        </tr>
+                        <tr>
+                            <td>20 Agu 2026</td>
+                            <td><strong>CRN-005</strong></td>
+                            <td>Penggantian Kampas Rem</td>
+                            <td>Pemasangan Kampas Rem Baru & Penyetelan</td>
+                            <td>Ahmad</td>
+                            <td><span class="badge success">Selesai</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

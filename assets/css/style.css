@@ -12,10 +12,17 @@ body {
     background-color: #f4f6fa;
     color: #333;
     line-height: 1.6;
+    display: block;
+}
+
+/* Khusus halaman Dashboard yang pakai Sidebar */
+body.dashboard-layout {
+    display: flex;
+    min-height: 100vh;
 }
 
 /* =========================================
-   2. HEADER & NAVIGASI
+   2. HEADER UTAMA (HALAMAN LUAR / INDEX)
 ========================================= */
 header {
     background: linear-gradient(135deg, #1f3a5f, #2c5282);
@@ -28,13 +35,18 @@ header h1 {
     margin-bottom: 5px;
     letter-spacing: 2px;
     font-size: 2.2rem;
+    color: white;
 }
 
 header p {
     font-size: 0.9rem;
     opacity: 0.9;
+    color: white;
 }
 
+/* =========================================
+   3. NAVIGASI ATAS (INDEX / HALAMAN LUAR)
+========================================= */
 nav {
     background-color: #2c5282;
     display: flex;
@@ -47,31 +59,110 @@ nav a {
     color: #cbd5e0;
     text-decoration: none;
     padding: 15px 20px;
-    margin: 0 5px;
     font-weight: 500;
     border-bottom: 3px solid transparent;
-    transition: 0.3s;
+    transition: 0.2s;
 }
 
 nav a:hover, nav a.active {
     color: #fff;
     border-bottom-color: #f6ad55;
-    background: rgba(255,255,255,0.06);
-}
-
-/* Tombol Logout menyatu tapi berubah merah saat di-hover */
-nav a.logout:hover {
-    border-bottom-color: #e53e3e;
-    color: #ffcccc;
 }
 
 /* =========================================
-   3. TATA LETAK UTAMA (MAIN CONTAINER)
+   SIDEBAR NAVIGASI KIRI
 ========================================= */
+.sidebar {
+    width: 260px;
+    background: linear-gradient(180deg, #1f3a5f 0%, #142a45 100%);
+    color: white;
+    display: flex;
+    flex-direction: column; /* Mengatur susunan secara vertikal dari atas ke bawah */
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 100;
+    box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+}
+
+.sidebar-header {
+    padding: 20px 15px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-header h1 {
+    font-size: 1.6rem;
+    letter-spacing: 2px;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.sidebar-header p {
+    font-size: 0.75rem;
+    color: #f6ad55;
+    opacity: 0.9;
+}
+
+/* Menu utama tersusun rapat di atas */
+.sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 0;
+}
+
+.sidebar-menu a, 
+.sidebar .logout {
+    color: #cbd5e0;
+    text-decoration: none;
+    padding: 12px 20px;
+    font-weight: 500;
+    font-size: 0.95rem;
+    border-left: 4px solid transparent;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.sidebar-menu a:hover, 
+.sidebar-menu a.active {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border-left-color: #f6ad55;
+}
+
+/* Tombol Logout dipaksa menempel di paling bawah sidebar */
+.sidebar .logout {
+    margin-top: auto; 
+    border-top: 1px solid rgba(255,255,255,0.1);
+    color: #feb2b2;
+}
+
+.sidebar .logout:hover {
+    background: rgba(229, 62, 62, 0.2);
+    border-left-color: #e53e3e;
+    color: #fff;
+}
+
+/* =========================================
+   5. AREA KONTEN UTAMA (DASHBOARD)
+========================================= */
+.main-wrapper {
+    flex: 1;
+    margin-left: 260px;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 main {
-    max-width: 1100px;
-    margin: 30px auto;
-    padding: 0 20px 50px;
+    max-width: 1200px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 30px 25px 50px;
+    flex: 1;
 }
 
 .page-title {
@@ -87,7 +178,7 @@ main {
 .page-title p { color: #666; font-size: 0.95rem; }
 
 /* =========================================
-   4. KARTU STATISTIK (DENGAN WARNA)
+   6. KARTU STATISTIK
 ========================================= */
 .stats {
     display: flex;
@@ -104,29 +195,21 @@ main {
     border-radius: 10px;
     text-align: center;
     box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-    border-top: 4px solid #1f3a5f; /* Default border atas */
+    border-top: 4px solid #1f3a5f;
     transition: transform 0.2s;
 }
 
 .card:hover { transform: translateY(-5px); }
-.card h3 { font-size: 0.9rem; color: #666; margin-bottom: 10px; text-transform: uppercase; }
+.card h3 { font-size: 0.85rem; color: #666; margin-bottom: 10px; text-transform: uppercase; letter-spacing: 0.5px; }
 .card p { font-size: 2.2rem; font-weight: bold; color: #1f3a5f; line-height: 1; }
 
-/* Pewarnaan Khusus Kartu Statistik */
-.card.orange { border-top-color: #dd8b1a; }
-.card.orange p { color: #dd8b1a; }
-
-.card.green { border-top-color: #38a169; }
-.card.green p { color: #38a169; }
-
-.card.red { border-top-color: #e53e3e; }
-.card.red p { color: #e53e3e; }
-
-.card.blue { border-top-color: #3182ce; }
-.card.blue p { color: #3182ce; }
+.card.green { border-top-color: #38a169; } .card.green p { color: #38a169; }
+.card.blue { border-top-color: #3182ce; } .card.blue p { color: #3182ce; }
+.card.orange { border-top-color: #dd8b1a; } .card.orange p { color: #dd8b1a; }
+.card.red { border-top-color: #e53e3e; } .card.red p { color: #e53e3e; }
 
 /* =========================================
-   5. BANNER NOTIFIKASI
+   7. BANNER NOTIFIKASI
 ========================================= */
 .banner-info {
     background-color: #bee3f8;
@@ -138,11 +221,11 @@ main {
     align-items: center;
     gap: 15px;
 }
-.banner-info .text span { font-weight: bold; color: #2a4365; display: block; font-size: 1.1rem; }
+.banner-info .text span { font-weight: bold; color: #2a4365; display: block; font-size: 1rem; }
 .banner-info .text small { color: #2c5282; }
 
 /* =========================================
-   6. TABEL & BADGE STATUS
+   8. TABEL & BADGE STATUS
 ========================================= */
 .table-section {
     background: white;
@@ -154,26 +237,24 @@ main {
 .table-section h3 { margin-bottom: 15px; color: #1f3a5f; }
 
 table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; }
-th { background-color: #1f3a5f; color: white; font-size: 0.9rem; text-transform: uppercase; }
+th, td { padding: 12px 15px; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; }
+th { background-color: #1f3a5f; color: white; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 0.5px; }
 tbody tr:hover { background-color: #f9fafc; }
 
-/* Label Badge */
 .badge {
     padding: 5px 12px;
     border-radius: 20px;
-    font-size: 0.8rem;
+    font-size: 0.78rem;
     font-weight: bold;
+    display: inline-block;
 }
 .badge.warning { background-color: #feebc8; color: #7b341e; }
 .badge.success { background-color: #c6f6d5; color: #22543d; }
 .badge.danger  { background-color: #fed7d7; color: #742a2a; }
+.badge.info    { background-color: #bee3f8; color: #2a4365; }
 
-/* =========================================
-   7. TOMBOL AKSI TABEL
-========================================= */
 .btn-aksi {
-    padding: 7px 12px;
+    padding: 6px 12px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
@@ -192,26 +273,26 @@ tbody tr:hover { background-color: #f9fafc; }
 .btn-detail:hover { background-color: #bee3f8; }
 
 /* =========================================
-   8. FOOTER
+   9. FOOTER
 ========================================= */
 footer {
     text-align: center;
     padding: 20px;
     color: #666;
-    margin-top: 40px;
-    font-size: 0.9rem;
+    font-size: 0.85rem;
+    border-top: 1px solid #e2e8f0;
+    background-color: #fff;
 }
+
 /* =========================================
-   9. HALAMAN LOGIN
+   10. HALAMAN LOGIN
 ========================================= */
-.login-page {
-    background: linear-gradient(135deg, #1f3a5f 0%, #2c5282 60%, #1f3a5f 100%);
-    min-height: 100vh;
+body.login-page {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    color: #2d3748;
+    background: linear-gradient(135deg, #1f3a5f 0%, #2c5282 60%, #1f3a5f 100%);
+    min-height: 100vh;
 }
 
 .login-box {
@@ -219,12 +300,11 @@ footer {
     border-radius: 18px;
     box-shadow: 0 20px 50px rgba(0,0,0,0.3);
     width: 100%;
-    max-width: 640px;
+    max-width: 420px;
     padding: 40px 36px 32px;
     position: relative;
     overflow: hidden;
 }
-
 .login-box::before {
     content: "";
     position: absolute;
@@ -232,106 +312,19 @@ footer {
     height: 6px;
     background: linear-gradient(90deg, #1f3a5f, #f6ad55, #1f3a5f);
 }
+.logo { text-align: center; margin-bottom: 26px; }
+.logo h1 { color: #1f3a5f; font-size: 2.2rem; letter-spacing: 3px; font-weight: 700; }
+.logo h1::after { content: ""; display: block; width: 60px; height: 4px; background: #f6ad55; margin: 10px auto 0; border-radius: 2px; }
+.logo p { color: #718096; font-size: 0.82rem; margin-top: 12px; line-height: 1.5; }
+.form-group { margin-bottom: 18px; }
+.form-group label { display: block; font-size: 0.85rem; color: #4a5568; font-weight: 600; margin-bottom: 6px; text-transform: uppercase; }
+.form-group input, .form-group select { width: 100%; padding: 12px 16px; border: 1.5px solid #e2e8f0; border-radius: 10px; font-size: 0.95rem; font-family: inherit; }
+.btn-login { width: 100%; padding: 14px; background: linear-gradient(135deg, #1f3a5f, #2c5282); color: #fff; border: none; border-radius: 10px; font-size: 1rem; font-weight: 700; cursor: pointer; transition: 0.2s; }
+.btn-login:hover { opacity: 0.95; transform: translateY(-1px); }
+.info-akun { margin-top: 22px; padding: 14px 16px; background: #edf2f7; border-radius: 10px; font-size: 0.78rem; color: #4a5568; border-left: 4px solid #f6ad55; }
 
-.logo {
-    text-align: center;
-    margin-bottom: 26px;
-}
-
-.logo h1 {
-    color: #1f3a5f;
-    font-size: 2.2rem;
-    letter-spacing: 3px;
-    font-weight: 700;
-}
-
-.logo h1::after {
-    content: "";
-    display: block;
-    width: 60px;
-    height: 4px;
-    background: #f6ad55;
-    margin: 10px auto 0;
-    border-radius: 2px;
-}
-
-.logo p {
-    color: #718096;
-    font-size: 0.82rem;
-    margin-top: 12px;
-    line-height: 1.5;
-}
-
-.form-group {
-    margin-bottom: 18px;
-}
-
-.form-group label {
-    display: block;
-    font-size: 0.85rem;
-    color: #4a5568;
-    font-weight: 600;
-    margin-bottom: 6px;
-    text-transform: uppercase;
-    letter-spacing: 0.6px;
-}
-
-.form-group input,
-.form-group select {
-    width: 100%;
-    padding: 12px 16px;
-    border: 1.5px solid #e2e8f0;
-    border-radius: 10px;
-    font-size: 0.95rem;
-    font-family: inherit;
-    color: #2d3748;
-    background: #f9fafc;
-    transition: 0.2s;
-}
-
-.form-group input:focus,
-.form-group select:focus {
-    outline: none;
-    border-color: #2c5282;
-    background: #fff;
-    box-shadow: 0 0 0 3px rgba(44,82,130,0.15);
-}
-
-.btn-login {
-    width: 100%;
-    padding: 14px;
-    margin-top: 8px;
-    background: linear-gradient(135deg, #1f3a5f, #2c5282);
-    color: #fff;
-    border: none;
-    border-radius: 10px;
-    font-size: 1rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: 0.25s;
-    font-family: inherit;
-    letter-spacing: 0.5px;
-}
-
-.btn-login:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(31,58,95,0.4);
-}
-
-.info-akun {
-    margin-top: 22px;
-    padding: 14px 16px;
-    background: #edf2f7;
-    border-radius: 10px;
-    font-size: 0.78rem;
-    color: #4a5568;
-    line-height: 1.7;
-    border-left: 4px solid #f6ad55;
-}
-
-.info-akun strong { color: #1f3a5f; }
 /* =========================================
-   10. HALAMAN BERANDA (INDEX)
+   11. HALAMAN BERANDA INDEX
 ========================================= */
 .hero-section {
     background: #fff;
@@ -341,98 +334,85 @@ footer {
     margin-bottom: 40px;
     border-left: 6px solid #f6ad55;
 }
-
-.hero-section h2 {
-    color: #1f3a5f;
-    margin-bottom: 15px;
-    font-size: 1.6rem;
-}
-
-.hero-section p {
-    color: #4a5568;
-    margin-bottom: 10px;
-    line-height: 1.7;
-}
-
-.section-title {
-    color: #1f3a5f;
-    text-align: center;
-    margin-bottom: 20px;
-    font-size: 1.5rem;
-}
+.hero-section h2 { color: #1f3a5f; margin-bottom: 15px; font-size: 1.6rem; }
+.hero-section p { color: #4a5568; margin-bottom: 10px; line-height: 1.7; }
 
 .features-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 20px;
 }
-
 .feature-card {
     background: #fff;
     padding: 25px 20px;
     border-radius: 10px;
     border-top: 4px solid #2c5282;
     box-shadow: 0 4px 14px rgba(31,58,95,0.08);
-    transition: transform 0.2s;
 }
+.feature-card h3 { color: #1f3a5f; font-size: 1.1rem; margin-bottom: 10px; }
+.feature-card p { color: #718096; font-size: 0.9rem; }
 
-.feature-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(31,58,95,0.15);
-}
-
-.feature-card h3 {
-    color: #1f3a5f;
-    font-size: 1.1rem;
-    margin-bottom: 10px;
-}
-
-.feature-card p {
-    color: #718096;
-    font-size: 0.9rem;
-    line-height: 1.5;
-}
 /* =========================================
-   11. FORM PEMERIKSAAN
+   12. FORMULIR (PEMERIKSAAN & DOWNTIME)
 ========================================= */
+.form-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 14px rgba(31,58,95,0.08);
+    margin-top: 10px;
+}
 
-/* Kotak Pengelompokan (Fieldset) */
+.form-header-badge {
+    color: #2c5282;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 5px;
+    display: block;
+}
+
+.form-card h2 {
+    color: #1f3a5f;
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.form-card > p {
+    color: #718096;
+    font-size: 0.95rem;
+    margin-bottom: 25px;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
 fieldset {
     border: 1.5px solid #e2e8f0;
-    border-radius: 8px;
+    border-radius: 10px;
     padding: 20px 25px;
     margin-bottom: 25px;
     background-color: #fcfdff;
 }
 
-/* Judul di atas Fieldset (Legend) */
 legend {
     font-weight: 700;
     color: #1f3a5f;
-    padding: 6px 14px;
-    background-color: white;
-    border-radius: 6px;
+    padding: 5px 12px;
+    background: white;
     border: 1.5px solid #e2e8f0;
+    border-radius: 6px;
     font-size: 0.95rem;
 }
 
-form p {
-    margin-bottom: 16px;
-}
-
-/* Label Judul Input (Misal: "Nama Operator:") */
-form label {
-    font-size: 0.9rem;
-    font-weight: 600;
-    color: #2d3748;
-    display: block; /* Membuat label berada di atas input */
-    margin-bottom: 8px;
-}
-
-/* Kolom Input Teks dan Dropdown */
-input[type="text"], 
-input[type="number"], 
-select, 
+input[type="text"],
+input[type="number"],
+select,
 textarea {
     width: 100%;
     padding: 12px 14px;
@@ -445,16 +425,15 @@ textarea {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-input[type="text"]:focus, 
-input[type="number"]:focus, 
-select:focus, 
+input[type="text"]:focus,
+input[type="number"]:focus,
+select:focus,
 textarea:focus {
     outline: none;
     border-color: #2c5282;
     box-shadow: 0 0 0 3px rgba(44,82,130,0.1);
 }
 
-/* Khusus Radio Button (Bulatan Pilihan) */
 input[type="radio"] {
     margin-right: 8px;
     accent-color: #1f3a5f;
@@ -462,20 +441,19 @@ input[type="radio"] {
     transform: scale(1.1);
 }
 
-/* Label di sebelah Radio Button (Misal: "Normal") */
 input[type="radio"] + label {
     display: inline-block;
     margin-right: 25px;
     font-weight: 500;
     color: #4a5568;
     vertical-align: middle;
-    margin-bottom: 0; /* Menimpa margin label judul */
+    margin-bottom: 0;
 }
 
-/* Area Tombol Bawah */
-.btn-group {
+.form-actions {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     gap: 12px;
     margin-top: 30px;
     padding-top: 20px;
@@ -490,7 +468,7 @@ input[type="radio"] + label {
     border-radius: 8px;
     cursor: pointer;
     font-weight: bold;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     transition: 0.2s;
 }
 .btn-submit:hover { 
@@ -498,17 +476,27 @@ input[type="radio"] + label {
     box-shadow: 0 6px 15px rgba(31,58,95,0.3); 
 }
 
-.btn-reset {
+.btn-cancel {
     background-color: #e2e8f0;
     color: #4a5568;
     padding: 12px 24px;
-    border: none;
     border-radius: 8px;
-    cursor: pointer;
+    text-decoration: none;
     font-weight: bold;
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     transition: 0.2s;
 }
-.btn-reset:hover { 
-    background-color: #cbd5e0; 
+.btn-cancel:hover { background-color: #cbd5e0; }
+
+.btn-submit-danger {
+    background-color: #e53e3e;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: 0.2s;
 }
+.btn-submit-danger:hover { background-color: #c53030; }

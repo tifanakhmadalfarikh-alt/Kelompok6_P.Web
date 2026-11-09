@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detail Unit & Servis - OPTi-MA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Mekanik Dashboard</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_mekanik.html">📊 Dashboard</a>
+            <a href="riwayat_maintenance.html">🔧 Riwayat Maintenance</a>
+            <a href="detail_unit.html" class="active">📋 Detail Unit & Servis</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title">
+                <span class="form-header-badge">Spesifikasi & Kondisi</span>
+                <h2>Detail Unit & Jadwal Servis Alat Berat</h2>
+                <p>Informasi status operasional, riwayat jam kerja (HM), serta estimasi jadwal pemeliharaan berikutnya.</p>
+            </div>
+
+            <!-- KARTU INFORMASI UNIT -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; margin-bottom: 30px;">
+                <div class="feature-card">
+                    <h3>EXC-001 (Excavator)</h3>
+                    <p><strong>Status:</strong> <span class="badge warning">Dalam Perbaikan</span></p>
+                    <p><strong>Hour Meter (HM):</strong> 4,250 HM</p>
+                    <p><strong>Lokasi:</strong> Pit A / Area Tambang Blok B</p>
+                </div>
+                <div class="feature-card">
+                    <h3>BDZ-002 (Bulldozer)</h3>
+                    <p><strong>Status:</strong> <span class="badge success">Beroperasi Normal</span></p>
+                    <p><strong>Hour Meter (HM):</strong> 3,850 HM</p>
+                    <p><strong>Lokasi:</strong> Stockpile Utama</p>
+                </div>
+                <div class="feature-card">
+                    <h3>CRN-005 (Crane)</h3>
+                    <p><strong>Status:</strong> <span class="badge success">Beroperasi Normal</span></p>
+                    <p><strong>Hour Meter (HM):</strong> 2,100 HM</p>
+                    <p><strong>Lokasi:</strong> Area Workshop</p>
+                </div>
+            </div>
+
+            <!-- TABEL DETAIL & SERVIS BERKALA -->
+            <section class="table-section">
+                <h3>Jadwal Servis Berkala Armada</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nomor Unit</th>
+                            <th>Jenis Alat</th>
+                            <th>HM Terakhir</th>
+                            <th>Ambang Servis Berikutnya</th>
+                            <th>Status Servis</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>EXC-001</strong></td>
+                            <td>Excavator</td>
+                            <td>4,250 HM</td>
+                            <td>4,500 HM</td>
+                            <td><span class="badge danger">Segera Servis</span></td>
+                            <td><button class="btn-aksi btn-approve">Jadwalkan</button></td>
+                        </tr>
+                        <tr>
+                            <td><strong>BDZ-002</strong></td>
+                            <td>Bulldozer</td>
+                            <td>3,850 HM</td>
+                            <td>4,000 HM</td>
+                            <td><span class="badge success">Aman</span></td>
+                            <td><button class="btn-aksi btn-detail">Detail</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

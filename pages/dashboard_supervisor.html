@@ -4,155 +4,82 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard Supervisor - OPTi-MA</title>
-    <!-- Memanggil file CSS utama -->
     <link rel="stylesheet" href="../assets/css/style.css">
 </head>
-<body>
+<body class="dashboard-layout">
 
-    <!-- Header -->
-    <header>
-        <h1>OPTi-MA</h1>
-        <p>Sistem Pengawasan Alat Berat (Tahap 1 - Mockup UI)</p>
-    </header>
-
-    <!-- Navigasi -->
-    <nav>
-        <a href="dashboard_supervisor.html" class="active">Dashboard</a>
-        <a href="#">Status Alat</a>
-        <a href="#">Persetujuan Laporan</a>
-        <a href="../login.html" class="logout">Logout</a>
-    </nav>
-
-    <main>
-        <!-- Banner Notifikasi -->
-        <div class="banner-info">
-            <span class="icon" style="font-size: 28px;">⚠️</span>
-            <div class="text">
-                <span>Perhatian: 2 Unit Mengalami Breakdown!</span>
-                <small>Segera tinjau laporan kerusakan dari operator dan jadwalkan perbaikan dengan mekanik.</small>
-            </div>
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Supervisor Dashboard</p>
         </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_supervisor.html" class="active">📊 Dashboard</a>
+            <a href="persetujuan_laporan.html">📋 Persetujuan Laporan</a>
+            <a href="status_alat.html">🚜 Status Alat Berat</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
 
-        <!-- Judul Halaman -->
-        <div class="page-title">
-            <h2>Halo, Supervisor!</h2>
-            <p>Pantau ketersediaan armada alat berat dan kelola persetujuan operasional harian.</p>
-        </div>
-
-        <!-- KARTU STATISTIK: FOKUS PADA KESIAPAN ALAT (ASSET READINESS) -->
-        <div class="stats">
-            <div class="card green">
-                <h3>Ready (Tersedia)</h3>
-                <p>12</p>
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title">
+                <h2>Halo, Supervisor!</h2>
+                <p>Pantau operasional alat berat dan tinjau laporan pemeriksaan harian operator.</p>
             </div>
-            <div class="card blue">
-                <h3>In Use (Beroperasi)</h3>
-                <p>8</p>
+
+            <!-- KARTU STATISTIK -->
+            <div class="stats">
+                <div class="card blue">
+                    <h3>Total Unit Aktif</h3>
+                    <p>8</p>
+                </div>
+                <div class="card orange">
+                    <h3>Pending Review</h3>
+                    <p>3</p>
+                </div>
+                <div class="card red">
+                    <h3>Unit Breakdown</h3>
+                    <p>1</p>
+                </div>
             </div>
-            <div class="card orange">
-                <h3>Maintenance</h3>
-                <p>3</p>
-            </div>
-            <div class="card red">
-                <h3>Breakdown (Rusak)</h3>
-                <p>2</p>
-            </div>
-        </div>
 
-        <!-- TABEL 1: PEMANTAUAN STATUS ALAT BERAT (FOKUS UTAMA) -->
-        <section class="table-section">
-            <h3>Pantauan Status Armada (Real-time)</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Nomor Unit</th>
-                        <th>Jenis Alat</th>
-                        <th>HM Terakhir</th>
-                        <th>Posisi / Operator</th>
-                        <th>Status Armada</th>
-                        <th>Aksi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>EXC-001</strong></td>
-                        <td>Excavator</td>
-                        <td>4250 HM</td>
-                        <td>Pit A / Andi Saputra</td>
-                        <td><span class="badge danger">Breakdown</span></td>
-                        <td><button class="btn-aksi btn-detail">Lacak Masalah</button></td>
-                    </tr>
-                    <tr>
-                        <td><strong>BDZ-002</strong></td>
-                        <td>Bulldozer</td>
-                        <td>3870 HM</td>
-                        <td>Pit B / Citra Lestari</td>
-                        <td><span class="badge info">In Use</span></td>
-                        <td><button class="btn-aksi btn-detail">Detail</button></td>
-                    </tr>
-                    <tr>
-                        <td><strong>CRN-005</strong></td>
-                        <td>Crane</td>
-                        <td>1200 HM</td>
-                        <td>Workshop / -</td>
-                        <td><span class="badge warning">Maintenance</span></td>
-                        <td><button class="btn-aksi btn-detail">Cek Progres</button></td>
-                    </tr>
-                    <tr>
-                        <td><strong>DMP-003</strong></td>
-                        <td>Dump Truck</td>
-                        <td>5120 HM</td>
-                        <td>Parkir Utama / -</td>
-                        <td><span class="badge success">Ready</span></td>
-                        <td><button class="btn-aksi btn-detail">Detail</button></td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
+            <!-- TABEL LAPORAN MASUK -->
+            <section class="table-section">
+                <h3>Laporan Terbaru Masuk</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Operator</th>
+                            <th>Unit</th>
+                            <th>Jenis</th>
+                            <th>Status</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>26 Sep 2026</td>
+                            <td>Operator Lapangan</td>
+                            <td><strong>EXC-001</strong></td>
+                            <td>Excavator</td>
+                            <td><span class="badge warning">Menunggu</span></td>
+                            <td>
+                                <a href="persetujuan_laporan.html" class="btn-aksi btn-approve" style="text-decoration:none;">Review</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
 
-        <!-- TABEL 2: PERSETUJUAN LAPORAN PRA-OPERASI (FOKUS KEDUA) -->
-        <section class="table-section" style="margin-top: 30px;">
-            <h3>Laporan Menunggu Persetujuan Anda</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Waktu Lapor</th>
-                        <th>Operator</th>
-                        <th>Nomor Unit</th>
-                        <th>Kondisi Laporan</th>
-                        <th>Aksi Supervisor</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Hari ini, 07:15</td>
-                        <td>Andi Saputra</td>
-                        <td><strong>EXC-001</strong></td>
-                        <td>Selang hidrolik bocor parah</td>
-                        <td>
-                            <button class="btn-aksi btn-approve">✓ Setujui (Kirim ke Mekanik)</button>
-                            <button class="btn-aksi btn-reject">✗ Tolak</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Hari ini, 07:30</td>
-                        <td>Budi Santoso</td>
-                        <td><strong>CRN-005</strong></td>
-                        <td>Jadwal servis rutin 500HM</td>
-                        <td>
-                            <button class="btn-aksi btn-approve">✓ Setujui (Kirim ke Mekanik)</button>
-                            <button class="btn-aksi btn-reject">✗ Tolak</button>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
-    </footer>
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
 
 </body>
 </html>

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Unit Alat - OPTi-MA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Admin Dashboard</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_admin.html">📊 Dashboard</a>
+            <a href="kelola_unit.html" class="active">🚜 Kelola Unit Alat</a>
+            <a href="kelola_pengguna.html">👥 Kelola Pengguna</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h2>Kelola Unit Alat Berat</h2>
+                    <p>Tambah, ubah, atau hapus data armada alat berat yang terdaftar dalam sistem.</p>
+                </div>
+                <div>
+                    <button class="btn-submit" onclick="alert('Fitur Form Tambah Unit')" style="cursor: pointer;">+ Tambah Unit Baru</button>
+                </div>
+            </div>
+
+            <!-- TABEL UNIT ALAT -->
+            <section class="table-section">
+                <h3>Daftar Armada Alat Berat</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>No Unit</th>
+                            <th>Jenis Alat</th>
+                            <th>Model / Merek</th>
+                            <th>Lokasi Kerja</th>
+                            <th>Status Unit</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>EXC-001</strong></td>
+                            <td>Excavator</td>
+                            <td>Komatsu PC200</td>
+                            <td>Pit A / Blok B</td>
+                            <td><span class="badge danger">Dalam Perbaikan</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail">Edit</button>
+                                <button class="btn-aksi btn-reject">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>BDZ-002</strong></td>
+                            <td>Bulldozer</td>
+                            <td>Caterpillar D8R</td>
+                            <td>Stockpile Utama</td>
+                            <td><span class="badge success">Beroperasi</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail">Edit</button>
+                                <button class="btn-aksi btn-reject">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>CRN-005</strong></td>
+                            <td>Crane</td>
+                            <td>Tadano TR-500M</td>
+                            <td>Area Workshop</td>
+                            <td><span class="badge success">Beroperasi</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail">Edit</button>
+                                <button class="btn-aksi btn-reject">Hapus</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

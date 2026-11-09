@@ -3,76 +3,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>OPTi-MA - Beranda</title>
+    <title>OPTi-MA - Sistem Pengawasan & Pemeliharaan Alat Berat</title>
     <!-- Memanggil file CSS utama -->
     <link rel="stylesheet" href="assets/css/style.css">
 </head>
-<body>
+<body class="dashboard-layout">
 
-    <header>
-        <h1>OPTi-MA</h1>
-        <p>Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web</p>
-    </header>
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Sistem Pengawasan</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="index.html" class="active">🏠 Beranda</a>
+            <a href="login.html">🔑 Login ke Dashboard</a>
+        </nav>
+    </aside>
 
-    <nav>
-        <a href="index.html" class="active">Beranda</a>
-        <a href="login.html">Login ke Dashboard</a>
-    </nav>
+    <!-- AREA KONTEN UTAMA (KANAN) -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title">
+                <h2>Beranda - OPTi-MA</h2>
+                <p>Sistem Informasi Pengawasan Operasional dan Pemeliharaan Alat Berat Berbasis Web</p>
+            </div>
 
-    <main>
-        
-        <!-- Bagian Pengenalan -->
-        <section class="hero-section">
-            <h2>Tentang OPTi-MA</h2>
-            <p>
-                OPTi-MA merupakan sistem informasi berbasis web yang digunakan untuk membantu proses pengawasan operasional dan pemeliharaan alat berat secara lebih terstruktur.
-            </p>
-            <p>
-                Operator dapat melakukan pemeriksaan kondisi alat sebelum digunakan dan mencatat <i>hour meter</i> (HM). Data tersebut dapat digunakan oleh supervisor dan mekanik untuk membantu pemantauan kondisi serta pemeliharaan alat berat.
-            </p>
-        </section>
+            <div class="hero-section" style="margin-bottom: 25px;">
+                <h2>Tentang OPTi-MA</h2>
+                <p>OPTi-MA merupakan sistem informasi berbasis web yang digunakan untuk membantu proses pengawasan operasional dan pemeliharaan alat berat secara lebih terstruktur.</p>
+                <p>Operator dapat melakukan pemeriksaan kondisi alat sebelum digunakan dan mencatat <em>hour meter</em> (HM). Data tersebut dapat digunakan oleh supervisor dan mekanik untuk membantu pemantauan kondisi serta pemeliharaan alat berat.</p>
+            </div>
 
-        <!-- Judul Fitur -->
-        <h2 class="section-title">Fitur Utama</h2>
+            <h2 style="color: #1f3a5f; margin-bottom: 15px; font-size: 1.3rem;">Fitur Utama</h2>
+            
+            <div class="features-grid" style="margin-bottom: 25px;">
+                <div class="feature-card">
+                    <h3>1. Checklist Pra-Operasi</h3>
+                    <p>Digunakan oleh operator untuk mencatat hasil pemeriksaan kondisi alat berat sebelum digunakan dalam kegiatan operasional.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>2. Pelaporan Hour Meter</h3>
+                    <p>Mencatat jam kerja alat berat sebagai dasar pemantauan penggunaan dan penentuan jadwal pemeliharaan.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>3. Handover Ticketing</h3>
+                    <p>Mencatat pemeriksaan kelayakan dan kondisi alat sebelum alat digunakan atau diserahterimakan kepada operator lain.</p>
+                </div>
+            </div>
+        </main>
 
-        <!-- Bagian Fitur (Grid) -->
-        <section class="features-grid">
-            <article class="feature-card">
-                <h3>1. Checklist Pra-Operasi</h3>
-                <p>Digunakan oleh operator untuk mencatat hasil pemeriksaan kondisi alat berat sebelum digunakan dalam kegiatan operasional.</p>
-            </article>
-
-            <article class="feature-card">
-                <h3>2. Pelaporan Hour Meter</h3>
-                <p>Mencatat jam kerja alat berat sebagai dasar pemantauan penggunaan dan penentuan jadwal pemeliharaan.</p>
-            </article>
-
-            <article class="feature-card">
-                <h3>3. Handover Ticketing</h3>
-                <p>Mencatat pemeriksaan kelayakan dan kondisi alat sebelum alat digunakan atau diserahterimakan kepada operator lain.</p>
-            </article>
-
-            <article class="feature-card">
-                <h3>4. Riwayat Kerusakan</h3>
-                <p>Menyimpan data kerusakan dan tindakan pemeliharaan sehingga riwayat kondisi alat dapat ditelusuri kembali.</p>
-            </article>
-
-            <article class="feature-card">
-                <h3>5. Preventive Maintenance</h3>
-                <p>Membantu memantau jadwal pemeliharaan berkala berdasarkan nilai <i>hour meter</i> (HM) dan interval pemeliharaan yang telah ditentukan.</p>
-            </article>
-
-            <article class="feature-card">
-                <h3>6. Analisis Risiko</h3>
-                <p>Memberikan informasi pendukung mengenai potensi risiko kerusakan berdasarkan data historis operasional dan pemeliharaan alat.</p>
-            </article>
-        </section>
-
-    </main>
-
-    <footer>
-        <p>&copy; 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
-    </footer>
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
 
 </body>
 </html>

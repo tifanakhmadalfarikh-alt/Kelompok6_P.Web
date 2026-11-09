@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulir Laporan Downtime - OPTi-MA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Operator Dashboard</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_operator.html">📊 Dashboard</a>
+            <a href="form_pemeriksaan.html">📝 Checklist Pra-Operasi</a>
+            <a href="form_downtime.html" class="active">⚠️ Laporkan Breakdown</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="form-card">
+                <span class="form-header-badge" style="color: #c53030;">Modul Laporan Downtime</span>
+                <h2>Formulir Laporan Masalah / Breakdown Alat Berat</h2>
+                <p>Laporkan kendala teknis atau kerusakan yang terjadi pada unit di area kerja agar segera ditindaklanjuti oleh Supervisor dan Mekanik.</p>
+
+                <form action="dashboard_operator.html">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="nomor_unit">Nomor Unit Alat Berat</label>
+                            <select id="nomor_unit" required>
+                                <option value="">-- Pilih Unit yang Anda Operasikan --</option>
+                                <option value="exc-001">EXC-001 (Excavator)</option>
+                                <option value="bdz-002">BDZ-002 (Bulldozer)</option>
+                                <option value="crn-005">CRN-005 (Crane)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="lokasi">Lokasi / Area Kerja (Pit / Blok)</label>
+                            <input type="text" id="lokasi" placeholder="Contoh: Pit A / Area Tambang Blok B" required>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="hm">Posisi Jam Kerja (HM) Saat Ini</label>
+                            <input type="number" id="hm" placeholder="Contoh: 4250" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="kategori">Kategori Kendala</label>
+                            <select id="kategori" required>
+                                <option value="total">Breakdown Total (Unit Tidak Bisa Beroperasi)</option>
+                                <option value="sebagian">Kendala Sebagian (Masih Bisa Berjalan dengan Catatan)</option>
+                                <option value="maintenance">Peringatan Servis / Bunyi Abnormal</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="deskripsi">Rincian Deskripsi Masalah / Gejala Kerusakan</label>
+                        <textarea id="deskripsi" rows="4" placeholder="Jelaskan secara detail gejala kerusakan (misal: suara mesin tidak normal, selang hidrolik bocor, indikator panas menyala)..." required></textarea>
+                    </div>
+
+                    <div class="form-actions">
+                        <a href="dashboard_operator.html" class="btn-cancel">Batal</a>
+                        <button type="submit" class="btn-submit-danger">Kirim Laporan Breakdown</button>
+                    </div>
+                </form>
+            </div>
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

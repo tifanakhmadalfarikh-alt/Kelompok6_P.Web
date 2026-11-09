@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kelola Pengguna - OPTi-MA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Admin Dashboard</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_admin.html">📊 Dashboard</a>
+            <a href="kelola_unit.html">🚜 Kelola Unit Alat</a>
+            <a href="kelola_pengguna.html" class="active">👥 Kelola Pengguna</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 15px;">
+                <div>
+                    <h2>Kelola Pengguna Sistem</h2>
+                    <p>Tambah, edit hak akses, atau kelola akun pengguna (Operator, Supervisor, Mekanik, Admin).</p>
+                </div>
+                <div>
+                    <button class="btn-submit" onclick="alert('Fitur Form Tambah Pengguna')" style="cursor: pointer;">+ Tambah Pengguna</button>
+                </div>
+            </div>
+
+            <!-- TABEL PENGGUNA -->
+            <section class="table-section">
+                <h3>Daftar Akun Pengguna Sistem</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nama Lengkap</th>
+                            <th>Username / Email</th>
+                            <th>Role / Hak Akses</th>
+                            <th>Status Akun</th>
+                            <th>Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Budi Santoso</strong></td>
+                            <td>operator1@optima.com</td>
+                            <td><span class="badge info">Operator</span></td>
+                            <td><span class="badge success">Aktif</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail">Edit</button>
+                                <button class="btn-aksi btn-reject">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ahmad Hidayat</strong></td>
+                            <td>supervisor@optima.com</td>
+                            <td><span class="badge warning">Supervisor</span></td>
+                            <td><span class="badge success">Aktif</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail">Edit</button>
+                                <button class="btn-aksi btn-reject">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Joko Widodo</strong></td>
+                            <td>mekanik@optima.com</td>
+                            <td><span class="badge info">Mekanik</span></td>
+                            <td><span class="badge success">Aktif</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail">Edit</button>
+                                <button class="btn-aksi btn-reject">Hapus</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Administrator Utama</strong></td>
+                            <td>admin@optima.com</td>
+                            <td><span class="badge danger">Admin</span></td>
+                            <td><span class="badge success">Aktif</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail">Edit</button>
+                                <button class="btn-aksi btn-reject">Hapus</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

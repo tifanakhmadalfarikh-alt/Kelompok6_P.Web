@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persetujuan Laporan & Perbaikan - OPTi-MA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Supervisor Dashboard</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_supervisor.html">📊 Dashboard</a>
+            <a href="persetujuan_laporan.html" class="active">📋 Persetujuan Laporan</a>
+            <a href="status_alat.html">🚜 Status Alat Berat</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title">
+                <h2>Persetujuan Laporan & Tindak Lanjut Perbaikan</h2>
+                <p>Tinjau detail kondisi unit, setujui laporan pra-operasi, atau teruskan/tolak laporan kerusakan unit ke tim Mekanik.</p>
+            </div>
+
+            <!-- BAGIAN 1: PERSETUJUAN CHECKLIST PRA-OPERASI -->
+            <section class="table-section" style="margin-bottom: 30px;">
+                <h3>1. Laporan Checklist Pra-Operasi (Menunggu Review)</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Operator</th>
+                            <th>Nomor Unit</th>
+                            <th>Jenis Alat</th>
+                            <th>Hour Meter</th>
+                            <th>Kondisi Unit</th>
+                            <th>Aksi Supervisor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>26 Sep 2026</td>
+                            <td>Budi Santoso</td>
+                            <td><strong>EXC-001</strong></td>
+                            <td>Excavator</td>
+                            <td>4250 HM</td>
+                            <td><span class="badge danger">Ada Komponen Tidak Normal</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail" onclick="lihatDetail('EXC-001', 'Budi Santoso', 'Oli Mesin: Tidak Normal, Selang Hidrolik: Bocor halus')">Detail</button>
+                                <button class="btn-aksi btn-approve" onclick="konfirmasiSetujui('EXC-001', 'checklist')">Setujui</button>
+                                <button class="btn-aksi btn-reject" onclick="konfirmasiTolak('EXC-001')">Tolak</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>25 Sep 2026</td>
+                            <td>Ahmad Hidayat</td>
+                            <td><strong>BDZ-002</strong></td>
+                            <td>Bulldozer</td>
+                            <td>3850 HM</td>
+                            <td><span class="badge success">Aman / Normal</span></td>
+                            <td>
+                                <button class="btn-aksi btn-detail" onclick="lihatDetail('BDZ-002', 'Ahmad Hidayat', 'Semua komponen mesin, kelistrikan, dan fisik dalam kondisi Normal.')">Detail</button>
+                                <button class="btn-aksi btn-approve" onclick="konfirmasiSetujui('BDZ-002', 'checklist')">Setujui</button>
+                                <button class="btn-aksi btn-reject" onclick="konfirmasiTolak('BDZ-002')">Tolak</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- BAGIAN 2: PERSETUJUAN PERBAIKAN & BREAKDOWN -->
+            <section class="table-section">
+                <h3>2. Persetujuan Perbaikan & Breakdown (Teruskan ke Mekanik)</h3>
+                <p style="font-size: 0.85rem; color: #718096; margin-bottom: 15px;">Pilih setujui untuk meneruskan tiket perbaikan ke mekanik, atau tolak jika laporan tidak valid.</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Pelapor</th>
+                            <th>Nomor Unit</th>
+                            <th>Kategori Kendala</th>
+                            <th>Deskripsi Masalah</th>
+                            <th>Tindakan Supervisor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>26 Sep 2026</td>
+                            <td>Budi Santoso</td>
+                            <td><strong>EXC-001</strong></td>
+                            <td><span class="badge danger">Breakdown Total</span></td>
+                            <td>Selang hidrolik utama bocor & mesin overheat.</td>
+                            <td>
+                                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                    <button class="btn-aksi btn-detail" onclick="lihatDetail('EXC-001', 'Budi Santoso', 'Kategori: Breakdown Total\nLokasi: Pit A / Blok B\nKeluhan: Selang hidrolik pecah dan oli menetes deras.')">Detail</button>
+                                    <button class="btn-aksi btn-approve" style="background-color: #3182ce; color: white;" onclick="teruskanKeMekanik('EXC-001')">✔ Setujui</button>
+                                    <button class="btn-aksi btn-reject" onclick="tolakPerbaikan('EXC-001')">Tolak</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>26 Sep 2026</td>
+                            <td>Joko Widodo</td>
+                            <td><strong>CRN-005</strong></td>
+                            <td><span class="badge warning">Kendala Sebagian</span></td>
+                            <td>Pedal rem terasa agak longgar saat dioperasikan di area miring.</td>
+                            <td>
+                                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                    <button class="btn-aksi btn-detail" onclick="lihatDetail('CRN-005', 'Joko Widodo', 'Kategori: Kendala Sebagian\nLokasi: Area Workshop\nKeluhan: Pengereman kurang responsif.')">Detail</button>
+                                    <button class="btn-aksi btn-approve" style="background-color: #3182ce; color: white;" onclick="teruskanKeMekanik('CRN-005')">✔ Setujui</button>
+                                    <button class="btn-aksi btn-reject" onclick="tolakPerbaikan('CRN-005')">Tolak</button>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>25 Sep 2026</td>
+                            <td>Dani Pratama</td>
+                            <td><strong>DTP-003</strong></td>
+                            <td><span class="badge info">Peringatan Servis</span></td>
+                            <td>Indikator jam kerja menyala, waktunya servis berkala 4000 HM.</td>
+                            <td>
+                                <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                                    <button class="btn-aksi btn-detail" onclick="lihatDetail('DTP-003', 'Dani Pratama', 'Kategori: Peringatan Servis / Maintenance\nLokasi: Stockpile 2\nKeluhan: Perlu penjadwalan ganti oli filter.')">Detail</button>
+                                    <button class="btn-aksi btn-approve" style="background-color: #3182ce; color: white;" onclick="teruskanKeMekanik('DTP-003')">✔ Setujui</button>
+                                    <button class="btn-aksi btn-reject" onclick="tolakPerbaikan('DTP-003')">Tolak</button>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+    <!-- SCRIPT INTERAKSI -->
+    <script>
+        function lihatDetail(unit, operator, catatan) {
+            alert(`--- DETAIL PEMERIKSAAN UNIT (${unit}) ---\n\nPelapor: ${operator}\nCatatan / Keterangan:\n${catatan}\n\nKesimpulan: Supervisor dapat menilai tingkat urgensi perbaikan.`);
+        }
+
+        function konfirmasiSetujui(unit, jenis) {
+            if(confirm(`Apakah Anda yakin ingin MENYETUJUI laporan unit ${unit}?`)) {
+                alert(`Laporan unit ${unit} berhasil disetujui.`);
+                location.reload();
+            }
+        }
+
+        function konfirmasiTolak(unit) {
+            const alasan = prompt(`Masukkan alasan penolakan untuk laporan unit ${unit}:`);
+            if(alasan) {
+                alert(`Laporan ditolak dengan alasan: "${alasan}"`);
+                location.reload();
+            }
+        }
+
+        function teruskanKeMekanik(unit) {
+            if(confirm(`Setujui perbaikan unit ${unit} dan teruskan tiket ke tim Mekanik?`)) {
+                alert(`Tiket perbaikan unit ${unit} berhasil diteruskan ke Mekanik!`);
+                location.reload();
+            }
+        }
+
+        function tolakPerbaikan(unit) {
+            const alasan = prompt(`Masukkan alasan penolakan tiket perbaikan unit ${unit}:`);
+            if(alasan) {
+                alert(`Tiket perbaikan unit ${unit} ditolak dengan alasan: "${alasan}"`);
+                location.reload();
+            }
+        }
+    </script>
+</body>
+</html>

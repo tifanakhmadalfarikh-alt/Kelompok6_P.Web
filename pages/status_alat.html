@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status Alat Berat - OPTi-MA</title>
+    <link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body class="dashboard-layout">
+
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Supervisor Dashboard</p>
+        </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_supervisor.html">📊 Dashboard</a>
+            <a href="persetujuan_laporan.html">📋 Persetujuan Laporan</a>
+            <a href="status_alat.html" class="active">🚜 Status Alat Berat</a>
+        </nav>
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
+
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            <div class="page-title">
+                <h2>Status Operasional Alat Berat</h2>
+                <p>Pantau status ketersediaan dan lokasi unit alat berat secara *real-time* di lapangan.</p>
+            </div>
+
+            <!-- TABEL STATUS UNIT -->
+            <section class="table-section">
+                <h3>Monitoring Armada Unit</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Nomor Unit</th>
+                            <th>Jenis Alat</th>
+                            <th>Lokasi Kerja</th>
+                            <th>Hour Meter (HM)</th>
+                            <th>Status Kondisi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>EXC-001</strong></td>
+                            <td>Excavator</td>
+                            <td>Pit A / Blok B</td>
+                            <td>4,250 HM</td>
+                            <td><span class="badge danger">Breakdown</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>BDZ-002</strong></td>
+                            <td>Bulldozer</td>
+                            <td>Stockpile Utama</td>
+                            <td>3,850 HM</td>
+                            <td><span class="badge success">Beroperasi Normal</span></td>
+                        </tr>
+                        <tr>
+                            <td><strong>CRN-005</strong></td>
+                            <td>Crane</td>
+                            <td>Area Workshop</td>
+                            <td>2,100 HM</td>
+                            <td><span class="badge success">Beroperasi Normal</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+</body>
+</html>

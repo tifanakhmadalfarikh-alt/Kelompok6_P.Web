@@ -3,149 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Form Pemeriksaan - OPTi-MA</title>
+    <title>Form Pemeriksaan Pra-Operasi - OPTi-MA</title>
     <!-- Memanggil file CSS utama -->
     <link rel="stylesheet" href="../assets/css/style.css">
-    <style>
-        /* Cuma buat rapihin bagian Detail Kerusakan */
-        section.table-section fieldset:last-of-type label {
-            display: block;
-            margin-bottom: 6px;
-            font-weight: 500;
-        }
-        section.table-section fieldset:last-of-type textarea {
-            display: block;
-            width: 100%;
-            box-sizing: border-box;
-            padding: 10px 12px;
-            border: 1px solid #cbd5e0;
-            border-radius: 6px;
-            font-family: inherit;
-            font-size: 14px;
-            min-height: 90px;
-            resize: vertical;
-        }
-    </style>
 </head>
-<body>
+<body class="dashboard-layout">
 
-    <header>
-        <h1>OPTi-MA</h1>
-    </header>
-
-    <nav>
-        <a href="dashboard_operator.html">Dashboard</a>
-        <a href="form_pemeriksaan.html" class="active">Form Pemeriksaan</a>
-        <a href="../login.html" class="logout">Logout</a>
-    </nav>
-
-    <main>
-        <div class="page-title">
-            <h2>Form Pemeriksaan Pra-Operasi</h2>
-            <p>Isi form ini untuk melaporkan kondisi alat berat sebelum digunakan. Laporan akan otomatis terkirim ke Supervisor.</p>
+    <!-- SIDEBAR NAVIGASI KIRI -->
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <h1>OPTi-MA</h1>
+            <p>Operator Dashboard</p>
         </div>
+        <nav class="sidebar-menu">
+            <a href="dashboard_operator.html">📊 Dashboard</a>
+            <a href="form_pemeriksaan.html" class="active">📝 Checklist Pra-Operasi</a>
+            <a href="form_downtime.html">⚠️ Laporkan Breakdown</a>
+        </nav>
+        <!-- Tombol Logout menempel di bawah -->
+        <a href="../login.html" class="logout">🚪 Logout</a>
+    </aside>
 
-        <section class="table-section">
-            <form action="dashboard_operator.html">
-                
-                <!-- IDENTITAS -->
-                <fieldset>
-                    <legend>Identitas Pemeriksaan</legend>
-                    <p>
-                        <label for="nama_operator">Nama Operator:</label>
-                        <input type="text" id="nama_operator" placeholder="Masukkan nama Anda" required>
-                    </p>
-                    <p>
-                        <label for="jenis_alat">Jenis Alat Berat:</label>
-                        <select id="jenis_alat" required>
-                            <option value="">-- Pilih Jenis Alat --</option>
-                            <option value="Excavator">Excavator</option>
-                            <option value="Bulldozer">Bulldozer</option>
-                            <option value="Dump Truck">Dump Truck</option>
-                        </select>
-                    </p>
-                    <p>
-                        <label for="nomor_unit">Nomor Unit:</label>
-                        <input type="text" id="nomor_unit" placeholder="Contoh: EXC-001" required>
-                    </p>
-                    <p>
-                        <label for="hour_meter">Hour Meter (HM):</label>
-                        <input type="number" id="hour_meter" min="0" placeholder="Contoh: 4200" required>
-                    </p>
-                </fieldset>
+    <!-- AREA KONTEN UTAMA -->
+    <div class="main-wrapper">
+        <main>
+            
+            <!-- KARTU FORMULIR -->
+            <div class="form-card">
+                <span class="form-header-badge" style="color: #2c5282;">Modul Pemeriksaan Harian</span>
+                <h2>Formulir Pemeriksaan Pra-Operasi</h2>
+                <p>Isi form ini untuk melaporkan kondisi alat berat sebelum digunakan. Laporan akan otomatis terkirim ke Supervisor.</p>
 
-                <!-- CHECKLIST (Contoh Singkat) -->
-                <h3>Checklist Pra-Operasi</h3>
-                <p style="margin-bottom: 15px; color: #666; font-size: 14px;">Pilih <strong>Normal</strong> jika kondisi sesuai, atau <strong>Tidak Normal</strong> jika ditemukan masalah.</p>
+                <!-- Tambahkan id="formPemeriksaan" agar terdeteksi oleh script JS -->
+                <form id="formPemeriksaan">
+                    
+                    <!-- Bagian 1: Identitas Pemeriksaan -->
+                    <fieldset>
+                        <legend>Identitas Pemeriksaan</legend>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="nama">Nama Operator</label>
+                                <input type="text" id="nama" placeholder="Masukkan nama Anda" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="jenis_alat">Jenis Alat Berat</label>
+                                <select id="jenis_alat" required>
+                                    <option value="">-- Pilih Jenis Alat --</option>
+                                    <option value="excavator">Excavator</option>
+                                    <option value="bulldozer">Bulldozer</option>
+                                    <option value="crane">Crane</option>
+                                    <option value="dump_truck">Dump Truck</option>
+                                </select>
+                            </div>
+                        </div>
 
-                <fieldset>
-                    <legend>1. Mesin & Kelistrikan</legend>
-                    <p>
-                        <label>Oli Mesin:</label><br>
-                        <input type="radio" name="oli_mesin" id="oli_normal" checked><label for="oli_normal">Normal</label>
-                        <input type="radio" name="oli_mesin" id="oli_rusak"><label for="oli_rusak">Tidak Normal</label>
-                    </p>
-                    <p>
-                        <label>Suara Mesin:</label><br>
-                        <input type="radio" name="suara" id="suara_normal" checked><label for="suara_normal">Normal</label>
-                        <input type="radio" name="suara" id="suara_rusak"><label for="suara_rusak">Tidak Normal</label>
-                    </p>
-                    <p>
-                        <label>Aki / Battery:</label><br>
-                        <input type="radio" name="aki" id="aki_normal" checked><label for="aki_normal">Normal</label>
-                        <input type="radio" name="aki" id="aki_rusak"><label for="aki_rusak">Tidak Normal</label>
-                    </p>
-                </fieldset>
+                        <div class="form-row">
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="nomor_unit">Nomor Unit</label>
+                                <input type="text" id="nomor_unit" placeholder="Contoh: EXC-001" required>
+                            </div>
+                            <div class="form-group" style="margin-bottom: 0;">
+                                <label for="hm">Hour Meter (HM) Awal</label>
+                                <input type="number" id="hm" placeholder="Contoh: 4200" required>
+                            </div>
+                        </div>
+                    </fieldset>
 
-                <fieldset>
-                    <legend>2. Sistem Hidrolik & Fisik</legend>
-                    <p>
-                        <label>Hydraulic Hose (Selang):</label><br>
-                        <input type="radio" name="hose" id="hose_normal" checked><label for="hose_normal">Normal</label>
-                        <input type="radio" name="hose" id="hose_rusak"><label for="hose_rusak">Tidak Normal</label>
-                    </p>
-                    <p>
-                        <label>Kondisi Ban / Track:</label><br>
-                        <input type="radio" name="ban" id="ban_normal" checked><label for="ban_normal">Normal</label>
-                        <input type="radio" name="ban" id="ban_rusak"><label for="ban_rusak">Tidak Normal</label>
-                    </p>
-                </fieldset>
+                    <!-- Bagian 2: Checklist Pra-Operasi -->
+                    <fieldset>
+                        <legend>Checklist Pra-Operasi</legend>
+                        <p style="font-size: 0.85rem; color: #718096; margin-bottom: 20px;">Pilih <strong>Normal</strong> jika kondisi sesuai, atau <strong>Tidak Normal</strong> jika ditemukan masalah.</p>
 
-                <!-- KESIMPULAN -->
-                <h3>Hasil Pemeriksaan</h3>
-                <fieldset>
-                    <legend>Kondisi Akhir Alat</legend>
-                    <p>
-                        <input type="radio" name="hasil" id="layak" checked>
-                        <label for="layak" style="font-weight: normal;">Kondisi Normal / Layak Digunakan</label>
-                    </p>
-                    <p>
-                        <input type="radio" name="hasil" id="tidak_layak">
-                        <label for="tidak_layak" style="font-weight: normal;">Ditemukan Kerusakan / Tidak Layak Digunakan</label>
-                    </p>
-                </fieldset>
+                        <!-- Sub-kategori 1 -->
+                        <div style="margin-bottom: 20px; padding-bottom: 15px; border-bottom: 1px solid #edf2f7;">
+                            <h4 style="color: #1f3a5f; margin-bottom: 10px; font-size: 1rem;">1. Mesin & Kelistrikan</h4>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <label style="font-weight: 500; font-size: 0.9rem; margin-bottom: 4px;">Oli Mesin:</label>
+                                <div>
+                                    <input type="radio" name="oli" id="oli_normal" value="normal" checked> <label for="oli_normal" style="display:inline; margin-right:20px;">Normal</label>
+                                    <input type="radio" name="oli" id="oli_abnormal" value="abnormal"> <label for="oli_abnormal" style="display:inline;">Tidak Normal</label>
+                                </div>
+                            </div>
 
-                <fieldset>
-                    <legend>Detail Kerusakan (Jika Ada)</legend>
-                    <p>
-                        <label>Keterangan Kerusakan:</label>
-                        <textarea rows="4" placeholder="Jelaskan bagian apa yang rusak atau bocor..."></textarea>
-                    </p>
-                </fieldset>
+                            <div style="margin-bottom: 12px;">
+                                <label style="font-weight: 500; font-size: 0.9rem; margin-bottom: 4px;">Suara Mesin:</label>
+                                <div>
+                                    <input type="radio" name="suara" id="suara_normal" value="normal" checked> <label for="suara_normal" style="display:inline; margin-right:20px;">Normal</label>
+                                    <input type="radio" name="suara" id="suara_abnormal" value="abnormal"> <label for="suara_abnormal" style="display:inline;">Tidak Normal</label>
+                                </div>
+                            </div>
 
-                <div class="btn-group">
-                    <button type="reset" class="btn-reset">Reset Form</button>
-                    <!-- Tombol ini akan mengarahkan user kembali ke dashboard_operator.html -->
-                    <button type="submit" class="btn-submit">Ajukan Laporan</button>
-                </div>
+                            <div>
+                                <label style="font-weight: 500; font-size: 0.9rem; margin-bottom: 4px;">Aki / Battery:</label>
+                                <div>
+                                    <input type="radio" name="aki" id="aki_normal" value="normal" checked> <label for="aki_normal" style="display:inline; margin-right:20px;">Normal</label>
+                                    <input type="radio" name="aki" id="aki_abnormal" value="abnormal"> <label for="aki_abnormal" style="display:inline;">Tidak Normal</label>
+                                </div>
+                            </div>
+                        </div>
 
-            </form>
-        </section>
-    </main>
+                        <!-- Sub-kategori 2 -->
+                        <div>
+                            <h4 style="color: #1f3a5f; margin-bottom: 10px; font-size: 1rem;">2. Sistem Hidrolik & Fisik</h4>
+                            
+                            <div style="margin-bottom: 12px;">
+                                <label style="font-weight: 500; font-size: 0.9rem; margin-bottom: 4px;">Hydraulic Hose (Selang):</label>
+                                <div>
+                                    <input type="radio" name="selang" id="selang_normal" value="normal" checked> <label for="selang_normal" style="display:inline; margin-right:20px;">Normal</label>
+                                    <input type="radio" name="selang" id="selang_abnormal" value="abnormal"> <label for="selang_abnormal" style="display:inline;">Tidak Normal</label>
+                                </div>
+                            </div>
+                        </div>
+                    </fieldset>
 
-    <footer>
-        <p>&copy; 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
-    </footer>
+                    <!-- Tombol Aksi -->
+                    <div class="form-actions">
+                        <a href="dashboard_operator.html" class="btn-cancel">Batal</a>
+                        <button type="submit" class="btn-submit">Kirim Checklist</button>
+                    </div>
 
+                </form>
+            </div>
+
+        </main>
+
+        <footer>
+            <p>© 2026 OPTi-MA. Sistem Pengawasan Alat Berat.</p>
+        </footer>
+    </div>
+
+    <!-- Memanggil file JavaScript khusus dari folder assets/js/ -->
+    <script src="../assets/js/form-pemeriksaan.js"></script>
 </body>
 </html>
